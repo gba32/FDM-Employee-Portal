@@ -50,10 +50,12 @@ header h3 {
     margin: 0 auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 70%;
+    height: 92%;
     text-align: left;
 }
 
 .form-column h2 {
+    font-weight: 500;
     font-size: 1.5em;
     margin-bottom: 1.5em;
 }
@@ -68,10 +70,13 @@ header h3 {
     background-color: #f5f5f5;
     border: none;
     border-radius: 6px;
-    padding: 8px 12px;
+    padding: 8px 1px 24px 12px;
+    
     font-family: inherit;
     width: 95%;
     box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
 }
 
 .form-column button[type="submit"] {
@@ -80,7 +85,7 @@ header h3 {
     border: none;
     border-radius: 8px;
     padding: 1em;
-    margin-bottom: 4em;
+    margin-bottom: 0em;
     cursor: pointer;
     color: #1a1a1a;
     font-family: 'Azeret Mono', monospace;
@@ -94,6 +99,94 @@ header h3 {
 
 /* Style for the recent requests section */
 .recents-column {
-    padding: 20px;
+    width: 70%;
+    text-align: left;
+}
+
+.recents-column h2 {
+    margin: 0 auto;
+    font-weight: 500;
+}
+
+.recent-request-container {
+    border-radius: 10px;
+    padding: 1em;
+    margin-bottom: 1em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+    grid-row: 1 / span 1;
+    grid-column: 2 / span 1;
+    justify-self: stretch;
+}
+
+.recent-request-details{
+    display: flex;
+    flex-direction: row;
+    gap: 28%;
+    
+}
+
+.recent-request-details .status-approved, .recent-request-details .status-pending, .recent-request-details .status-rejected {
+    display: flex;
+    align-items: top;
+    justify-content: right;
+    text-align: right;
+    padding: 0.75em 0.75em 0.55em 0.75em;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    height: 20px;
+}
+
+.status-approved, .status-pending, .status-rejected {
+    border-radius: 3.402820018375656e+38px;
+}
+
+.status-approved {
+    background-color: #DCFCE7;
+    color: #016630;
+}
+
+.status-pending {
+    background-color: #FEF9C2;
+    color: #894B00;
+}
+.status-rejected {
+    background-color: #e26868;
+    color: white;
+}
+
+.recent-request-item{
+    background-color: white;
+    border-radius: 12px;
+    padding: 0.75em 1em;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recent-request-item p strong {
+    color: #1a1a1a;
+}
+
+.recent-request-item p {
+     color: #4A5565;
+}
+
+.recent-request-container .additional-requests-history{
+    display: flex;
+    height: 76px;
+    padding: 26px 26px 2px 26px;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+
+    border-radius: 10px;
+    border: 2px dashed #D1D5DC;
+    color: #4A5565;
 }
 /* End of form and recent requests styles */
