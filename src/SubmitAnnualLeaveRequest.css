@@ -9,12 +9,13 @@
 
 .layout {
     display: grid;
-    gap: 24px;
     flex-shrink: 0;
     align-self: stretch;
     grid-template-rows: repeat(1,minmax(0,1fr));
-    grid-template-columns: repeat(2,minmax(0,1fr));
+    grid-template-columns: 45% 55%;
+    gap: 24px;
     min-height: 65vh;
+    
 }
 
 /* Style for the header section */
@@ -47,11 +48,12 @@ header h3 {
     border-radius: 10px;
     padding-left: 2.3em;
     padding-top: 1.3em;
-    margin: 0 auto;
+    margin: 0 6%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 70%;
+    width: 90%;
     height: 92%;
     text-align: left;
+    
 }
 
 .form-column h2 {
@@ -106,6 +108,7 @@ header h3 {
 .recents-column h2 {
     margin: 0 auto;
     font-weight: 500;
+    padding-left: 1em;
 }
 
 .recent-request-container {
