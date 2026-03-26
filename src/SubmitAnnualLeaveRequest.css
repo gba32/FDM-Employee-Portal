@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=Big+Shoulders+Inline:opsz,wght@10..72,100..900&family=Fredoka:wght@300..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.page {
+    font-family: 'Azeret Mono', monospace;
+    background-color: #EFECEA;
+    font-weight: 500;
+    min-height: 100vh;
+}
+
+.layout {
+    display: grid;
+    gap: 24px;
+    flex-shrink: 0;
+    align-self: stretch;
+    grid-template-rows: repeat(1,minmax(0,1fr));
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    min-height: 65vh;
+}
+
+/* Style for the header section */
+header {
+    padding: 20px;
+    padding-bottom: 1.5em;
+    text-align: left;
+    padding-left: 3em;
+}
+
+header h1 {
+    font-size: 2em;
+    color: black;
+    font-weight: 600;
+}
+
+header h3 {
+    font-size: 1.2em;
+    color: #4A5565;
+    font-weight: 500;
+}
+/* End of header styles */
+
+
+
+
+/* Style for the request form section */
+.form-column {
+    background-color: white;
+    border-radius: 10px;
+    padding-left: 2.3em;
+    padding-top: 1.3em;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 70%;
+    text-align: left;
+}
+
+.form-column h2 {
+    font-size: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.form-column form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.form-column input, textarea {
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-family: inherit;
+    width: 95%;
+    box-sizing: border-box;
+}
+
+.form-column button[type="submit"] {
+    width: 95%;
+    background: #c6f135;
+    border: none;
+    border-radius: 8px;
+    padding: 1em;
+    margin-bottom: 4em;
+    cursor: pointer;
+    color: #1a1a1a;
+    font-family: 'Azeret Mono', monospace;
+    font-weight: bold;
+}
+
+/* End of form styles */
+
+
+
+
+/* Style for the recent requests section */
+.recents-column {
+    padding: 20px;
+}
+/* End of form and recent requests styles */
