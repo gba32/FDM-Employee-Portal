@@ -3,7 +3,7 @@ import './SubmitAnnualLeaveRequest.css';
 import calendarIcon from './images/calendar-icon.svg';
 
 export default function SubmitAnnualLeaveRequest() {
-    // This is a placeholder for the AnnualLeaveRequest class.
+
     const calendarLogo = <img src={calendarIcon} alt="[Calendar Icon]" />;
     return (
         <div className='page'>
@@ -19,12 +19,20 @@ export default function SubmitAnnualLeaveRequest() {
     );
 }
 
-function NewLeaveRquest() {
-    // This is a placeholder for the NewLeaveRequest class. 
+
+function NewLeaveRquest() { 
+
+    function createLeaveRequest(formData) {
+        const startDate = formData.get('start-date');
+        const endDate = formData.get('end-date');
+        const reason = formData.get('reason');
+        alert(`Leave request submitted:\nStart Date: ${startDate}\nEnd Date: ${endDate}\nReason: ${reason}`);
+    }
+
     return (
         <div className='form-column'> 
             <h2>New Leave Request</h2>
-                <form>
+                <form action={createLeaveRequest} method="POST" className='leave-request-form'>
                     <label htmlFor="start-date">Start Date:</label>
                     <input type="date" id="start-date" name="start-date" required />
                     <br />
@@ -42,11 +50,11 @@ function NewLeaveRquest() {
 }
 
 function YourRecentRequests() {
-    // This is a placeholder for the YourRecentRequests class.   
+
     return (
         <div className= 'recents-column'>
             <h2>Your Recent Requests</h2>
-            {/*<p>No recent requests found.</p>*/}
+            {/*<p>No recent requests found.</p>*/} {/* Placeholder for recent request history. */}
             <RecentRequestHistory />
 
         </div>
@@ -54,7 +62,28 @@ function YourRecentRequests() {
 }
 
 function RecentRequestHistory() {
-    // This is a placeholder for the RecentRequestItem class. 
+    
+    /*
+      - Helper functions for converting date formats and formatting the display of recent requests.
+      - In a real application, this would likely involve fetching recent request data from an API and formatting it for display.
+     */
+
+    // Helper function for converting a date to a triplet
+    function dateToTriplet(date){
+        const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+        let name = month[date.getMonth()];
+        return [date.getDate(), name, date.getFullYear()];
+    }
+
+    // Helper function for creating objects for formatted dates
+    function formatDate(startDate, endDate) {
+        let [sDay, sMonth, sYear] = dateToTriplet(startDate);
+        let [eDay, eMonth, eYear] = dateToTriplet(endDate);
+        return { sDay, sMonth, sYear, eDay, eMonth, eYear };
+    }
+
+
     return (
         <div className='recent-request-container'>
                 <RecentRequestItem
@@ -96,6 +125,7 @@ function RecentRequestHistory() {
 }
 
 function RecentRequestItem({startDay, startMonth, startYear, endDay, endMonth, endYear, reason, status }) {
+
     if (!startDay || !startMonth || !endDay || !endMonth || !startYear || !endYear || !reason || !status) {
         return null; // Return null if any of the required props are missing
     }
