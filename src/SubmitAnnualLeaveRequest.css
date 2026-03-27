@@ -5,7 +5,7 @@
     background-color: #EFECEA;
     font-weight: 500;
     min-height: 100vh;
-    padding-left: 5em;
+    padding-left: 10em; /*Space for the sidebar, should be increased when the sidebar symbol is clicked */
 }
 
 .layout {
@@ -73,7 +73,7 @@ header h3 {
     background-color: #f5f5f5;
     border: none;
     border-radius: 6px;
-    padding: 8px 1px 24px 12px;
+    padding: 8px 1px 18px 12px;
     
     font-family: inherit;
     width: 95%;
