@@ -12,9 +12,12 @@ const SideBar = ({ userRole, setActiveTab, onLogout }) => {
           Employment Query
         </button>
 
-        <button onClick={() => setActiveTab("submitLeave")}>
-          Request Leave
-        </button>
+        {/* Manager doesnt see the leave request */}
+        {userRole != "Manager" && (
+          <button onClick={() => setActiveTab("submitLeave")}>
+            Request Leave
+          </button>
+        )}
 
         {/* Conditional rendering of buttons: only show if the user has the right role */}
         {userRole === "IT" && (
@@ -23,8 +26,20 @@ const SideBar = ({ userRole, setActiveTab, onLogout }) => {
           </button>
         )}
 
+        {userRole === "IT" && (
+          <button onClick={() => setActiveTab("modifyAccess")}>
+            User Access
+          </button>
+        )}
+
         {userRole === "HR" && (
           <button onClick={() => setActiveTab("hrResolve")}>HR Queries</button>
+        )}
+
+        {userRole === "HR" && (
+          <button onClick={() => setActiveTab("announcement")}>
+            Announcements
+          </button>
         )}
 
         {userRole === "Manager" && (

@@ -20,6 +20,10 @@ function App() {
   const [employeeRepository, setEmployeeRepository] = useState(
     Repository.EmployeeRepository,
   ); //needed for approve annual leave request logic
+  //needed for publish internal announcement use case
+  const [AnnouncementRepository, setAnnouncementRepository] = useState(
+    Repository.AnnouncementRepository,
+  );
 
   //authentication logic
   const handleLogin = (user) => {
@@ -33,10 +37,7 @@ function App() {
     <div className="appRoot">
       {/*If not logged in, show only login page component */}
       {!currentUser ? (
-        <LoginPage
-          onLogin={handleLogin}
-          users={Repository.EmployeeRepository}
-        ></LoginPage>
+        <LoginPage onLogin={handleLogin} users={employeeRepository}></LoginPage>
       ) : (
         // if logged in, show dashboard containing sidebar and the use case interfaces
         <Dashboard
@@ -47,6 +48,8 @@ function App() {
           setLeaveRepository={setLeaveRepository}
           employeeRepository={employeeRepository}
           setEmployeeRepository={setEmployeeRepository}
+          AnnouncementRepository={AnnouncementRepository}
+          setAnnouncementRepository={setAnnouncementRepository}
           onLogout={handleLogout}
         ></Dashboard>
       )}
