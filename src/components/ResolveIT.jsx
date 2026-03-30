@@ -1,3 +1,7 @@
+import "../css/ResolveIT.css";
+
+import { QueryStatus, QueryType } from "../services/mockPortalData";
+
 const ResolveIT = ({ queryRepository, setRepository, user }) => {
   if (!user) {
     return <p>Loading user data</p>;

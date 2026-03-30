@@ -1,3 +1,7 @@
+import "../css/SubmitQuery.css";
+
+import { QueryStatus, QueryType } from "../services/mockPortalData";
+
 const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   if (!user) {
     return <p>Loading user data</p>;

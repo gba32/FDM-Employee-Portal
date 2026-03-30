@@ -1,3 +1,6 @@
+import "../css/ResolveHR.css";
+
+import { QueryStatus, QueryType } from "../services/mockPortalData";
 const ResolveHR = ({ queryRepository, setRepository, user }) => {
   if (!user) {
     return <p>Loading user data</p>;

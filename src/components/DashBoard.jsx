@@ -1,10 +1,24 @@
+import React from "react";
 import { useState } from "react";
+import "../css/Dashboard.css";
+
 import SideBar from "./SideBar";
 import SubmitQuery from "./SubmitQuery";
 import ResolveHR from "./ResolveHR";
 import ResolveIT from "./ResolveIT";
+import SubmitLeave from "./submitLeave";
+import ApproveLeave from "./ApproveLeave";
 
-const Dashboard = ({ user, queryRepository, setRepository, onLogout }) => {
+const Dashboard = ({
+  user,
+  queryRepository,
+  setQueryRepository,
+  leaveRepository,
+  setLeaveRepository,
+  employeeRepository,
+  setEmployeeRepository,
+  onLogout,
+}) => {
   //tracks which use case interface to show. home is the default page to view
   const [activeTab, setActiveTab] = useState("home");
 
@@ -28,15 +42,24 @@ const Dashboard = ({ user, queryRepository, setRepository, onLogout }) => {
         {activeTab === "submitEmpQuery" && (
           <SubmitQuery
             repository={queryRepository}
-            setRepository={setRepository}
+            setRepository={setQueryRepository}
             user={user}
           ></SubmitQuery>
         )}
 
+        {activeTab === "submitLeave" && (
+          <SubmitLeave
+            repository={leaveRepository}
+            setRepository={setLeaveRepository}
+            user={user}
+          ></SubmitLeave>
+        )}
+
+        {/*SECURITY REQUIREMENTS: if user role is HR or IT before resolving queries */}
         {activeTab === "itResolve" && user.role === "IT" && (
           <ResolveIT
             repository={queryRepository}
-            setRepository={setRepository}
+            setRepository={setQueryRepository}
             user={user}
           ></ResolveIT>
         )}
@@ -44,9 +67,20 @@ const Dashboard = ({ user, queryRepository, setRepository, onLogout }) => {
         {activeTab === "hrResolve" && user.role === "HR" && (
           <ResolveHR
             repository={queryRepository}
-            setRepository={setRepository}
+            setRepository={setQueryRepository}
             user={user}
           ></ResolveHR>
+        )}
+
+        {/*SECURITY REQUIREMENTS: if user role is Manager before approving  */}
+        {activeTab === "approveLeave" && user.role === "Manager" && (
+          <ApproveLeave
+            leaveRepo={leaveRepository}
+            setLeaveRepo={setLeaveRepository}
+            empRepo={employeeRepository}
+            setEmpRepo={setEmployeeRepository}
+            user={user}
+          ></ApproveLeave>
         )}
       </div>
     </div>

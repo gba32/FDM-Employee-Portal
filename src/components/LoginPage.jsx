@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../css/LoginPage.css";
 
 const LoginPage = ({ onLogin, users }) => {
   const [username, setUsername] = useState("");
@@ -7,7 +8,7 @@ const LoginPage = ({ onLogin, users }) => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
 
-    // search for user in mock data
+    // search for user in EmployeeRepository
     const foundUser = users.find(
       (u) => u.username === username && u.password === password,
     );
