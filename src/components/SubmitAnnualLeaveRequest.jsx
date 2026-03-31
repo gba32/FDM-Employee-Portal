@@ -1,5 +1,5 @@
 import React from 'react';
-import './SubmitAnnualLeaveRequest.css';
+import './css/SubmitAnnualLeaveRequest.css';
 import calendarIcon from './images/calendar-icon.svg';
 
 export default function SubmitAnnualLeaveRequest() {
