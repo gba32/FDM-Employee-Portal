@@ -92,7 +92,7 @@ function RecentRequestHistory() {
 
         // fetch recent request data from 'API', format for display
         const mockData = Repository.LeaveRepository;
-        return mockData.map(request => {
+        return mockData.slice(0, 3).map(request => {
             const { sDay, sMonth, sYear, eDay, eMonth, eYear } = formatDate(request.startDate, request.endDate);
             return (
                 <RecentRequestItem
@@ -110,15 +110,24 @@ function RecentRequestHistory() {
         });
     }
 
+    let recentRequestsFinder = getRecentRequests()
+    let additionalHistoryMsg = null;
+        if (recentRequestsFinder === null || recentRequestsFinder.length === 0) {
+            recentRequestsFinder = <p className='no-recent-requests'>No recent requests found.</p>;
+        }
+        if (recentRequestsFinder.length < 3) {
+            additionalHistoryMsg = <a href="http://example.com"><p className='additionalHistoryText'>Additional request history...</p></a>;
+        }
+    const recentRequests = recentRequestsFinder;
 
     return (
         <>
             <div className='recent-request-container'>
-                {getRecentRequests()}
+                {recentRequests}
             </div>
 
             <div className= 'additional-requests-history'>
-                <p>Additional request history...</p>
+                {additionalHistoryMsg}
             </div>
         </>
     );
