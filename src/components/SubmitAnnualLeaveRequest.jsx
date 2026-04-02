@@ -1,9 +1,10 @@
 import React from 'react';
 import '../css/SubmitAnnualLeaveRequest.css';
 import calendarIcon from '../images/calendar-icon.svg';
-import {Repository} from '../services/mockPortalData.js';
+import {LeaveStatus, Repository} from '../services/mockPortalData.js';
 
-export default function SubmitAnnualLeaveRequest() {
+export default function SubmitAnnualLeaveRequest({ user }) {
+    const currentEmpID = user?.id;
 
     const calendarLogo = <img src={calendarIcon} alt="[Calendar Icon]" />;
     return (
@@ -13,8 +14,8 @@ export default function SubmitAnnualLeaveRequest() {
                 <h3>Submit your annual leave request for approval</h3>
             </header>
                 <div className = 'layout'>
-                    <NewLeaveRquest />
-                    <YourRecentRequests />
+                    <NewLeaveRquest currentEmpID={currentEmpID} />
+                    <YourRecentRequests currentEmpID={currentEmpID} />
                 </div>
         </div>
     );
@@ -29,7 +30,26 @@ function NewLeaveRquest() {
         const startDate = formData.get('start-date');
         const endDate = formData.get('end-date');
         const reason = formData.get('reason');
-        ;
+
+        if (startDate && endDate) {
+              const start = new Date(startDate);
+              const end = new Date(endDate);
+              if (end < start) {
+                  window.alert('End date cannot be before start date. Please select a valid date range.');
+                  return;
+              }
+          }
+        
+        console.log('Leave Request Created:', { startDate, endDate, reason });
+        LeaveRepository.push({
+            requestID: (LeaveRepository.length + 1).toString(),
+            startDate: startDate.toString(),
+            endDate: endDate.toString(),
+            totalDays: endDate - startDate + 1,
+            reason: reason,
+            leaveStatus: LeaveStatus.PENDING, // Default status for new requests
+            empID: currentEmpID 
+        });
     }
 
     return (
@@ -52,19 +72,19 @@ function NewLeaveRquest() {
     );
 }
 
-function YourRecentRequests() {
+function YourRecentRequests({ currentEmpID }) {
 
     return (
         <div className= 'recents-column'>
             <h2>Your Recent Requests</h2>
             {/*<p>No recent requests found.</p>*/} {/* Placeholder for recent request history. */}
-            <RecentRequestHistory />
+            <RecentRequestHistory currentEmpID={currentEmpID} />
 
         </div>
     );
 }
 
-function RecentRequestHistory() {
+function RecentRequestHistory({ currentEmpID }) {
     
     /*
       - Helper functions for converting date formats and formatting the display of recent requests.
@@ -91,7 +111,9 @@ function RecentRequestHistory() {
     function getRecentRequests() {
 
         // fetch recent request data from 'API', format for display
-        const mockData = Repository.LeaveRepository;
+        const mockData = Repository.LeaveRepository.filter(
+            request => request.empID === currentEmpID,
+        );
         return mockData.slice(0, 3).map(request => {
             const { sDay, sMonth, sYear, eDay, eMonth, eYear } = formatDate(request.startDate, request.endDate);
             return (
