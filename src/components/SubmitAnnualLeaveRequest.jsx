@@ -1,6 +1,7 @@
 import React from 'react';
-import './css/SubmitAnnualLeaveRequest.css';
-import calendarIcon from './images/calendar-icon.svg';
+import '../css/SubmitAnnualLeaveRequest.css';
+import calendarIcon from '../images/calendar-icon.svg';
+import {Repository} from '../services/mockPortalData.js';
 
 export default function SubmitAnnualLeaveRequest() {
 
@@ -22,17 +23,19 @@ export default function SubmitAnnualLeaveRequest() {
 
 function NewLeaveRquest() { 
 
-    function createLeaveRequest(formData) {
+    function createLeaveRequest(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
         const startDate = formData.get('start-date');
         const endDate = formData.get('end-date');
         const reason = formData.get('reason');
-        alert(`Leave request submitted:\nStart Date: ${startDate}\nEnd Date: ${endDate}\nReason: ${reason}`);
+        ;
     }
 
     return (
         <div className='form-column'> 
             <h2>New Leave Request</h2>
-                <form action={createLeaveRequest} method="POST" className='leave-request-form'>
+                <form onSubmit={createLeaveRequest} className='leave-request-form'>
                     <label htmlFor="start-date">Start Date:</label>
                     <input type="date" id="start-date" name="start-date" required />
                     <br />
@@ -70,6 +73,7 @@ function RecentRequestHistory() {
 
     // Helper function for converting a date to a triplet
     function dateToTriplet(date){
+        date = new Date(date);
         const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
         let name = month[date.getMonth()];
@@ -83,44 +87,40 @@ function RecentRequestHistory() {
         return { sDay, sMonth, sYear, eDay, eMonth, eYear };
     }
 
+    // Imports data for recent requests and converts it into RecentRequestItem components
+    function getRecentRequests() {
+
+        // fetch recent request data from 'API', format for display
+        const mockData = Repository.LeaveRepository;
+        return mockData.map(request => {
+            const { sDay, sMonth, sYear, eDay, eMonth, eYear } = formatDate(request.startDate, request.endDate);
+            return (
+                <RecentRequestItem
+                    key={request.requestID}
+                    startDay={sDay}
+                    startMonth={sMonth}
+                    startYear={sYear}
+                    endDay={eDay}
+                    endMonth={eMonth}
+                    endYear={eYear}
+                    reason={request.reason}
+                    status={request.leaveStatus}
+                />
+            );
+        });
+    }
+
 
     return (
-        <div className='recent-request-container'>
-                <RecentRequestItem
-                    startDay={25}
-                    startMonth="Mar"
-                    endDay={27}
-                    endMonth="Mar"
-                    startYear={2026}
-                    endYear={2026}
-                    reason="Family vacation"
-                    status="Approved"
-                />
-                <RecentRequestItem
-                    startDay={14}
-                    startMonth="Feb"
-                    endDay={16}
-                    endMonth="Feb"
-                    startYear={2026}
-                    endYear={2026}
-                    reason="Personal reasons"
-                    status="Pending"
-                />
-                <RecentRequestItem
-                    startDay={10}
-                    startMonth="Jan"
-                    endDay={12}
-                    endMonth="Jan"
-                    startYear={2026}
-                    endYear={2026}
-                    reason="Medical appointment"
-                    status="Rejected"
-                />
+        <>
+            <div className='recent-request-container'>
+                {getRecentRequests()}
+            </div>
 
-                <div className= 'additional-requests-history'>
-                    <p>Additional request history...</p>
-                </div>
-        </div>
+            <div className= 'additional-requests-history'>
+                <p>Additional request history...</p>
+            </div>
+        </>
     );
 }
 
