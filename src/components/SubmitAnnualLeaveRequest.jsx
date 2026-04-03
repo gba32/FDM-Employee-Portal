@@ -144,10 +144,9 @@ function RecentRequestHistory({ currentEmpID }) {
         <>
             <div className='recent-request-container'>
                 {recentRequests}
-            </div>
-
-            <div className= 'additional-requests-history'>
-                {additionalHistoryMsg}
+                <div className= 'additional-requests-history'>
+                    {additionalHistoryMsg}
+                </div>
             </div>
         </>
     );
