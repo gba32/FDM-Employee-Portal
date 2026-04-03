@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/SubmitAnnualLeaveRequest.css';
 import calendarIcon from '../images/calendar-icon.svg';
 import {Repository, addLeaveRequest} from '../services/mockPortalData.js';
 
 export default function SubmitAnnualLeaveRequest({ user }) {
     const currentEmpID = user?.id;
+    const [refreshCounter, setRefreshCounter] = useState(0);
+
+    function handleLeaveSubmitted() {
+        setRefreshCounter(counter => counter + 1);
+    }
 
     const calendarLogo = <img src={calendarIcon} alt="[Calendar Icon]" />;
     return (
@@ -14,15 +19,15 @@ export default function SubmitAnnualLeaveRequest({ user }) {
                 <h3>Submit your annual leave request for approval</h3>
             </header>
                 <div className = 'layout'>
-                    <NewLeaveRquest currentEmpID={currentEmpID} />
-                    <YourRecentRequests currentEmpID={currentEmpID} />
+                    <NewLeaveRquest currentEmpID={currentEmpID} onLeaveSubmitted={handleLeaveSubmitted} />
+                    <YourRecentRequests currentEmpID={currentEmpID} refreshCounter={refreshCounter} />
                 </div>
         </div>
     );
 }
 
 
-function NewLeaveRquest({currentEmpID}) { 
+function NewLeaveRquest({currentEmpID, onLeaveSubmitted}) { 
 
     function createLeaveRequest(e) {
         e.preventDefault();
@@ -48,6 +53,11 @@ function NewLeaveRquest({currentEmpID}) {
             empID: currentEmpID,
         });
         console.log('Updated Leave Repository:', Repository.LeaveRepository);
+        if (onLeaveSubmitted) {
+            onLeaveSubmitted();
+        }
+        e.target.reset();
+        
     }
 
     return (
@@ -70,13 +80,13 @@ function NewLeaveRquest({currentEmpID}) {
     );
 }
 
-function YourRecentRequests({ currentEmpID }) {
+function YourRecentRequests({ currentEmpID, refreshCounter }) {
 
     return (
         <div className= 'recents-column'>
             <h2>Your Recent Requests</h2>
             {/*<p>No recent requests found.</p>*/} {/* Placeholder for recent request history. */}
-            <RecentRequestHistory currentEmpID={currentEmpID} />
+            <RecentRequestHistory key={refreshCounter} currentEmpID={currentEmpID} />
 
         </div>
     );
@@ -112,7 +122,8 @@ function RecentRequestHistory({ currentEmpID }) {
         const mockData = Repository.LeaveRepository.filter(
             request => request.empID === currentEmpID,
         );
-        return mockData.slice(0, 3).map(request => {
+        const earliestRequest = mockData.length < 3 ? 0 : mockData.length - 3;
+        return mockData.slice(earliestRequest, mockData.length).map(request => {
             const { sDay, sMonth, sYear, eDay, eMonth, eYear } = formatDate(request.startDate, request.endDate);
             return (
                 <RecentRequestItem
@@ -123,7 +134,7 @@ function RecentRequestHistory({ currentEmpID }) {
                     endDay={eDay}
                     endMonth={eMonth}
                     endYear={eYear}
-                    reason={request.reason}
+                    reason={request.reason.slice(0, 50) + (request.reason.length > 50 ? '...' : '')}
                     status={request.leaveStatus}
                 />
             );
