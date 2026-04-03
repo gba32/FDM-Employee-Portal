@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/SubmitAnnualLeaveRequest.css';
 import calendarIcon from '../images/calendar-icon.svg';
-import {LeaveStatus, Repository} from '../services/mockPortalData.js';
+import {Repository, addLeaveRequest} from '../services/mockPortalData.js';
 
 export default function SubmitAnnualLeaveRequest({ user }) {
     const currentEmpID = user?.id;
@@ -22,7 +22,7 @@ export default function SubmitAnnualLeaveRequest({ user }) {
 }
 
 
-function NewLeaveRquest() { 
+function NewLeaveRquest({currentEmpID}) { 
 
     function createLeaveRequest(e) {
         e.preventDefault();
@@ -41,15 +41,13 @@ function NewLeaveRquest() {
           }
         
         console.log('Leave Request Created:', { startDate, endDate, reason });
-        LeaveRepository.push({
-            requestID: (LeaveRepository.length + 1).toString(),
-            startDate: startDate.toString(),
-            endDate: endDate.toString(),
-            totalDays: endDate - startDate + 1,
-            reason: reason,
-            leaveStatus: LeaveStatus.PENDING, // Default status for new requests
-            empID: currentEmpID 
+        addLeaveRequest({
+            startDate,
+            endDate,
+            reason,
+            empID: currentEmpID,
         });
+        console.log('Updated Leave Repository:', Repository.LeaveRepository);
     }
 
     return (
@@ -137,7 +135,7 @@ function RecentRequestHistory({ currentEmpID }) {
         if (recentRequestsFinder === null || recentRequestsFinder.length === 0) {
             recentRequestsFinder = <p className='no-recent-requests'>No recent requests found.</p>;
         }
-        if (recentRequestsFinder.length < 3) {
+        if (recentRequestsFinder.length >= 3) {
             additionalHistoryMsg = <a href="http://example.com"><p className='additionalHistoryText'>Additional request history...</p></a>;
         }
     const recentRequests = recentRequestsFinder;
