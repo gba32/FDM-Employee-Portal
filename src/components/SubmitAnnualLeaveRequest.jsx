@@ -55,6 +55,7 @@ function NewLeaveRquest({currentEmpID, onLeaveSubmitted}) {
             empID: currentEmpID,
         });
         console.log('Updated Leave Repository:', Repository.LeaveRepository);
+        alert('Request sent for approval!');
         if (onLeaveSubmitted) {
             onLeaveSubmitted();
         }
@@ -173,7 +174,7 @@ function RecentRequestHistory({ currentEmpID }) {
             recentRequestsFinder = <p className='no-recent-requests'>No recent requests found.</p>;
         }
         if (recentRequestsFinder.length >= 3) {
-            additionalHistoryMsg = <button><p className='additionalHistoryText'>Additional request history...</p></button>;
+            additionalHistoryMsg = <button><p className='additionalHistoryText'>Click to view more...</p></button>;
         }
     const recentRequests = recentRequestsFinder;
 
