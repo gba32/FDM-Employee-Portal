@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import '../css/SubmitAnnualLeaveRequest.css';
 import calendarIcon from '../images/calendar-icon.svg';
 import {Repository, addLeaveRequest} from '../services/mockPortalData.js';
@@ -141,13 +143,37 @@ function RecentRequestHistory({ currentEmpID }) {
         });
     }
 
+    // Imports data for all requests the employee made and converts it into RecentRequestItem components
+    function getAllRequests() {
+        const mockData = Repository.LeaveRepository.filter(
+            request => request.empID === currentEmpID,
+        );
+        return mockData.map(request => {
+            const { sDay, sMonth, sYear, eDay, eMonth, eYear } = formatDate(request.startDate, request.endDate);
+            return (
+                <RecentRequestItem
+                    key={request.requestID}
+                    startDay={sDay}
+                    startMonth={sMonth}
+                    startYear={sYear}
+                    endDay={eDay}
+                    endMonth={eMonth}
+                    endYear={eYear}
+                    reason={request.reason}
+                    status={request.leaveStatus}
+                />
+            );
+        });
+
+    }
+
     let recentRequestsFinder = getRecentRequests()
     let additionalHistoryMsg = null;
         if (recentRequestsFinder === null || recentRequestsFinder.length === 0) {
             recentRequestsFinder = <p className='no-recent-requests'>No recent requests found.</p>;
         }
         if (recentRequestsFinder.length >= 3) {
-            additionalHistoryMsg = <a href="http://example.com"><p className='additionalHistoryText'>Additional request history...</p></a>;
+            additionalHistoryMsg = <button><p className='additionalHistoryText'>Additional request history...</p></button>;
         }
     const recentRequests = recentRequestsFinder;
 
@@ -156,7 +182,22 @@ function RecentRequestHistory({ currentEmpID }) {
             <div className='recent-request-container'>
                 {recentRequests}
                 <div className= 'additional-requests-history'>
-                    {additionalHistoryMsg}
+                    <Popup trigger={additionalHistoryMsg} modal nested>
+                        {close => (
+                            <div className='modal'>
+                                <div className='content'>
+                                    <h2>Additional Request History</h2>
+                                    {getAllRequests()}
+                                </div>
+                                <div className='closePopup'>
+                                    <button onClick={() => close()}>
+                                        ✕
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </Popup>
+
                 </div>
             </div>
         </>
