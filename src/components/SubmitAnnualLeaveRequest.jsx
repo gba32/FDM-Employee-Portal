@@ -210,14 +210,17 @@ function RecentRequestItem({startDay, startMonth, startYear, endDay, endMonth, e
         return null; // Return null if any of the required props are missing
     }
 
+    let commaForStartYear = ',';
+
     if (startYear === endYear) {
         startYear = '';
+        commaForStartYear = '';
     }
     return (
             <div className='recent-request-item'>
                 <section className='recent-request-details'>
                     <section>
-                        <p><strong>{startMonth} {startDay} {startYear} - {endMonth} {endDay}, {endYear}</strong></p>
+                        <p><strong>{startMonth} {startDay}{commaForStartYear} {startYear} - {endMonth} {endDay}, {endYear}</strong></p>
                         <p>{reason}</p>
                     </section>
                     <section className={`status-${status.toLowerCase()}`}>
