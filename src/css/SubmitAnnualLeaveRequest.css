@@ -233,15 +233,87 @@ header h3 {
     text-decoration: none;
 }
 
-.additionalHistoryText{
+.additional-requests-history button {
     border-radius: 10px;
-    border: 2px dashed #D1D5DC;
-    padding: 0.75em 1em;
+    border: 3px dashed #D1D5DC;
+    padding: 1.5em 1em;
     color: #4A5565;
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
+    background-color: rgb(230, 238, 206);
+    text-align: left;
+    font-family: inherit;
+    font-size: large;
 }
+
+.additional-requests-history button:hover {
+    background-color: rgb(206, 238, 238);
+}
+
+.additional-requests-history button:active {
+    background-color: rgb(188, 238, 206);
+}
+
 /* End of form and recent requests styles */
+
+/* Modal styles */
+.popup-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.popup-content {
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    width: auto !important;
+}
+
+.modal {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1rem;
+    width: min(90vw, 760px);
+    max-height: 85vh;
+    box-sizing: border-box;
+}
+
+.modal .content {
+    max-height: calc(85vh - 90px);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.modal .content h2 {
+    margin-top: 0;
+    color: #1a1a1a;
+    text-decoration: underline;
+}
+
+.modal .content .recent-request-item {
+    margin-bottom: 1rem;
+    background-color: rgb(231, 237, 110);
+}
+
+.modal .content .recent-request-item p {
+    color: #784545;
+}
+
+.modal .closePopup {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.modal .closePopup button {
+    background-color: red;
+    cursor: pointer;
+}
 
 
 /* Responsive design for smaller screens */
@@ -269,6 +341,15 @@ header h3 {
 
     .additionalHistoryText{
         width: 100%;
+    }
+
+
+    .modal .content {
+        max-height: 70vh;
+    }
+
+    .modal .closePopup {
+        justify-content: center;
     }
 }
 
