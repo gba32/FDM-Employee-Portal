@@ -22,6 +22,7 @@ const Dashboard = ({
   AnnouncementRepository,
   setAnnouncementRepository,
   onLogout,
+  triggerNotification,
 }) => {
   //tracks which use case interface to show. home is the default page to view
   const [activeTab, setActiveTab] = useState("home");
@@ -112,6 +113,7 @@ const Dashboard = ({
             empRepo={employeeRepository}
             setEmpRepo={setEmployeeRepository}
             user={user}
+            triggerNotification={triggerNotification}
           ></ApproveLeave>
         )}
       </div>

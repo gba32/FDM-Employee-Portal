@@ -158,6 +158,28 @@ export const Repository = {
       leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
       resolverID: null, //requestee property: stores the empID of Manager staff from Employee object after manager clicks resolved and display in 'Recently Processed'
     },
+
+    {
+      requestID: "3",
+      empID: "1",
+      startDate: "2026-04-12",
+      endDate: "2026-04-14",
+      totalDays: 3,
+      reason: "Personal Matters",
+      leaveStatus: LeaveStatus.APPROVED, //property defined by LeaveStatus enunmeration class
+      resolverID: "3",
+    },
+
+    {
+      requestID: "4",
+      empID: "4",
+      startDate: "2026-04-12",
+      endDate: "2026-04-14",
+      totalDays: 21,
+      reason: "Testing",
+      leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
+      resolverID: null,
+    },
   ],
 
   //USE CASE
