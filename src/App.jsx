@@ -25,6 +25,18 @@ function App() {
     Repository.AnnouncementRepository,
   );
 
+  //NEW NOTIFICATION:(
+  const [notification, setNotification] = useState(null);
+
+  //trigger notification
+  const triggerNotification = (message) => {
+    setNotification(message);
+    //auto hide after 3 seconds
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
+
   //authentication logic
   const handleLogin = (user) => {
     setCurrentUser(user);
@@ -35,6 +47,8 @@ function App() {
 
   return (
     <div className="appRoot">
+      {/* NEW NOTIFICATION SYSTEM */}
+      {notification && <div>{notification}</div>}
       {/*If not logged in, show only login page component */}
       {!currentUser ? (
         <LoginPage onLogin={handleLogin} users={employeeRepository}></LoginPage>
@@ -51,6 +65,7 @@ function App() {
           AnnouncementRepository={AnnouncementRepository}
           setAnnouncementRepository={setAnnouncementRepository}
           onLogout={handleLogout}
+          triggerNotification={triggerNotification}
         ></Dashboard>
       )}
     </div>
