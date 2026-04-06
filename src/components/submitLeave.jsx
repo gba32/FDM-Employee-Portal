@@ -1,4 +1,5 @@
 import "../css/submitLeave.css";
+import SubmitAnnualLeaveRequest from "./SubmitAnnualLeaveRequest";
 
 import { LeaveActionType, LeaveStatus } from "../services/mockPortalData";
 const SubmitLeave = ({ repository, setRepository, user }) => {
@@ -11,6 +12,8 @@ const SubmitLeave = ({ repository, setRepository, user }) => {
       <p>
         Logged in as <b>{user.name}</b>
       </p>
+
+      <SubmitAnnualLeaveRequest user={user} />
     </div>
   );
 };
