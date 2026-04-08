@@ -5,10 +5,15 @@
 */
 
 import "../css/SubmitQuery.css";
-
 import { QueryStatus, QueryType } from "../services/mockPortalData";
+import React, { useState } from "react";
+
 
 const SubmitQuery = ({ queryRepository, setRepository, user }) => {
+
+  const [subject, setSubject] = useState("");
+  const [question, setQuestion] = useState("");
+
   if (!user) {
     return <p>Loading user data</p>;
   }
@@ -25,12 +30,19 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
           <h2>Submit New Query</h2>
 
           <label>Subject</label>
-          <input type="text" placeholder="Brief subject line..." />
+          <input
+            type="text"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            placeholder="Brief subject line..."
+          />
 
           <label>Your Question</label>
-          <textarea placeholder="Describe your employment query in detail..." />
-
-          <button className="submit-btn">Submit Query</button>
+          <textarea
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Describe your employment query in detail..."
+          />
         </div>
 
         {/* QUERY LIST */}
