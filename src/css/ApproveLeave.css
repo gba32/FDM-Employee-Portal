@@ -1,3 +1,68 @@
-.ApproveLeaveContainer h2 {
-  color: rgb(255, 139, 139);
+.ApproveLeaveContainer {
+  display: flex;
+  width: 79.5rem;
+  height: 39.125rem;
+  align-items: flex-start;
+
+  background: #efecea;
 }
+.subContainer {
+  display: flex;
+  width: 71.625rem;
+  padding: 2rem 2rem 0 2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.approveHeader {
+  display: flex;
+  height: 4.25rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+.approveHeader .heading {
+  height: 2.25rem;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+.approveHeader .heading h1 {
+  color: #0a0a0a;
+  font-family: "Azeret Mono";
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.25rem; /* 120% */
+}
+.approveHeader .paragraph {
+  display: flex;
+  padding-right: 31.8125rem;
+  align-items: center;
+  align-self: stretch;
+}
+.approveHeader .paragraph p {
+  color: #4a5565;
+  font-family: "Azeret Mono";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem; /* 150% */
+}
+
+.requestContainer {
+  display: grid;
+  height: 30.25rem;
+  row-gap: 1.5rem;
+  column-gap: 24px;
+  align-self: stretch;
+  grid-template-rows: repeat(1, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* .ApproveLeaveContainer h2 {
+  color: rgb(255, 139, 139);
+} */
