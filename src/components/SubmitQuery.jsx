@@ -67,20 +67,16 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
         </div>
 
         {/* QUERY LIST */}
-        <div className="query-list">
-          <h2>Your Previous Queries</h2>
 
-          <div className="query-card">
-            <h3>Payroll Question</h3>
-            <p>Mar 20, 2026</p>
-            <span className="status resolved">Resolved</span>
-          </div>
-
-          <div className="query-card">
-            <h3>Contract Review</h3>
-            <p>Mar 15, 2026</p>
-            <span className="status in-progress">In Progress</span>
-          </div>
+          {queries.map((q) => (
+            <div key={q.id} className="query-card">
+              <h3>{q.subject}</h3>
+              <p>{q.date}</p>
+              <span className={`status ${q.status === "Resolved" ? "resolved" : "in-progress"}`}>
+                {q.status}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
