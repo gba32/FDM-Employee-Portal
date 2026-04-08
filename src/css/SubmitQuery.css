@@ -1,36 +1,29 @@
-/*
-* Employment Query Submission
-* Sepehr Azadi-Harsini
-* 240540030
-*/
-
-
 .query-page {
   padding: 48px;
   font-family: 'Inter', sans-serif;
-  background: #f5f5f5;
+  background: #f3f4f6;
   min-height: 100vh;
 }
 
 /* TITLE */
 .title {
-  font-size: 26px;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 6px;
 }
 
 .icon {
-  color: #a3e635;
+  color: #b6ff00;
   font-size: 20px;
 }
 
 .subtitle {
   color: #6b7280;
   font-size: 14px;
-  margin-top: 6px;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 /* LAYOUT */
@@ -43,16 +36,17 @@
 /* LEFT PANEL */
 .query-form {
   background: #ffffff;
-  padding: 24px;
-  border-radius: 14px;
+  padding: 28px;
+  border-radius: 16px;
   width: 40%;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
 }
 
 .query-form h2 {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: #374151;
 }
 
 .query-form label {
@@ -60,38 +54,41 @@
   font-weight: 500;
   margin-bottom: 6px;
   display: block;
+  color: #374151;
 }
 
 .query-form input,
 .query-form textarea {
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
-  background: #f3f4f6;
+  background: #f1f5f9;
   margin-bottom: 16px;
   font-size: 14px;
+  outline: none;
 }
 
 .query-form textarea {
-  height: 120px;
+  height: 130px;
   resize: none;
 }
 
 /* BUTTON */
 .submit-btn {
-  background: #c6ff00;
+  background: #b6ff00;
   border: none;
-  padding: 12px;
+  padding: 14px;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .submit-btn:hover {
-  opacity: 0.9;
+  transform: scale(1.01);
+  opacity: 0.95;
 }
 
 /* RIGHT PANEL */
@@ -102,26 +99,27 @@
 .query-list h2 {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 /* CARDS */
 .query-card {
   background: #ffffff;
-  padding: 16px 18px;
-  border-radius: 14px;
-  margin-bottom: 14px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  margin-bottom: 16px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 
 .query-card h3 {
   font-size: 15px;
   font-weight: 600;
+  margin: 0;
 }
 
 .query-card p {
@@ -132,7 +130,7 @@
 
 /* STATUS BADGES */
 .status {
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 500;
@@ -150,10 +148,10 @@
 
 /* EMPTY BOX */
 .empty-box {
-  margin-top: 20px;
-  border: 2px dashed #d1d5db;
-  border-radius: 14px;
-  padding: 30px;
+  margin-top: 24px;
+  border: 2px dashed #e5e7eb;
+  border-radius: 16px;
+  padding: 36px;
   text-align: center;
   color: #9ca3af;
   font-size: 14px;
