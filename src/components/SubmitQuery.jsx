@@ -60,6 +60,10 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Describe your employment query in detail..."
           />
+
+          <button className="submit-btn" onClick={handleSubmit}>
+            Submit Query
+          </button>
         </div>
 
         {/* QUERY LIST */}
