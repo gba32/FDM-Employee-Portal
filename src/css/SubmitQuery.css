@@ -60,3 +60,39 @@
 .in-progress {
   color: blue;
 }
+
+
+.query-container {
+  display: flex;
+  gap: 40px;
+}
+
+.query-form {
+  width: 40%;
+}
+
+.query-list {
+  width: 60%;
+}
+
+.submit-btn {
+  background: #c6ff00;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.resolved {
+  background: #d4f8d4;
+  color: green;
+}
+
+.in-progress {
+  background: #d4e4ff;
+  color: blue;
+}
