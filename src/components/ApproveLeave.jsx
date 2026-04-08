@@ -1,4 +1,7 @@
 import "../css/ApproveLeave.css";
+//LIST OF TASKS: FORMAT DATES, add a click to view more when processed requests hit to 3
+//use pop up similar to annual leave request
+//CHECK VIA console.log order of processed requests displayed
 
 import { LeaveActionType, LeaveStatus } from "../services/mockPortalData";
 const ApproveLeave = ({
@@ -110,7 +113,7 @@ const ApproveLeave = ({
           </div>
 
           <div className="paragraph">
-            <p>Review and approve annual leave requests from your team</p>
+            <p>Review and approve annual leave requests.</p>
           </div>
           {/* <p>Logged in as {user.name}</p> */}
         </header>
@@ -120,7 +123,9 @@ const ApproveLeave = ({
             {pendingCount > 0 ? (
               <h2>Pending Requests ({pendingCount})</h2>
             ) : (
-              <p>No pending requests at this time.</p>
+              <p className="noPendingLabel">
+                No pending requests at this time.
+              </p>
             )}
 
             {/* display pending leave request on panel */}
@@ -133,28 +138,33 @@ const ApproveLeave = ({
                 const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
                 // React standard to use unique id to track each leave request
                 return (
-                  <li key={leave.requestID}>
+                  <li key={leave.requestID} className="requestBox">
                     <div className="pendingRequestTop">
-                      <p>{foundEmp.name}</p>
-                      <p>
-                        {leave.startDate}-{leave.endDate}
-                      </p>
+                      <div className="profilePicture">
+                        {foundEmp.name.charAt(0)}
+                      </div>
+                      <section className="details">
+                        <p>{foundEmp.name}</p>
+                        <p className="dates">
+                          {leave.startDate}-{leave.endDate}
+                        </p>
+                      </section>
                     </div>
 
                     <div className="pendingRequestBottom">
                       <p>{leave.reason}</p>
+
+                      {/*2a)get the leave balance via employee's id */}
+                      <button
+                        className="approveBtn"
+                        onClick={() =>
+                          handleApprove(foundEmp.leaveBalance, leave)
+                        }
+                      >
+                        Approve
+                      </button>
+                      {/* <button>Reject</button> */}
                     </div>
-                    {/*2a)get the leave balance via employee's id */}
-                    <button
-                      onClick={() =>
-                        handleApprove(foundEmp.leaveBalance, leave)
-                      }
-                    >
-                      Approve
-                    </button>
-                    {/* <button>Reject</button> */}
-                    <br />
-                    <br />
                   </li>
                 );
               })}
@@ -173,19 +183,30 @@ const ApproveLeave = ({
                 const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
                 // React standard to use unique id to track each leave request
                 return (
-                  <li key={leave.requestID}>
+                  <li key={leave.requestID} className="requestBox">
                     <div className="processedRequestTop">
-                      <p>Status: {leave.leaveStatus}</p>
-
-                      <p>{foundEmp.name}</p>
-                      <p>
-                        {leave.startDate}-{leave.endDate}
-                      </p>
-                      <p>{leave.reason}</p>
+                      <section className="details">
+                        <p className="name">{foundEmp.name}</p>
+                        <p className="dates">
+                          {leave.startDate}-{leave.endDate}
+                        </p>
+                      </section>
+                      <section className="statusLabel">
+                        <p
+                          className={
+                            leave.leaveStatus === LeaveStatus.APPROVED
+                              ? "approvedLabel"
+                              : "rejectedLabel"
+                          }
+                        >
+                          {leave.leaveStatus}
+                        </p>
+                      </section>
                     </div>
 
-                    <br />
-                    <br />
+                    <div className="processedRequestBottom">
+                      <p>{leave.reason}</p>
+                    </div>
                   </li>
                 );
               })}
