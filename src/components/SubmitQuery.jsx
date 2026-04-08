@@ -36,12 +36,16 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   }
   return (
     <div className="query-page">
-      <h1>Employment Query</h1>
+      <h1 className="title">
+        <span className="icon">💬</span> Employment Query
+      </h1>
+
       <p className="subtitle">
         Submit questions about your employment, benefits, or policies
       </p>
 
       <div className="query-container">
+
         {/* LEFT: FORM */}
         <div className="query-form">
           <h2>Submit New Query</h2>
@@ -66,20 +70,35 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
           </button>
         </div>
 
-        {/* QUERY LIST */}
+        {/* RIGHT: QUERY LIST */}
+        <div className="query-list">
+          <h2>Your Previous Queries</h2>
 
           {queries.map((q) => (
             <div key={q.id} className="query-card">
-              <h3>{q.subject}</h3>
-              <p>{q.date}</p>
-              <span className={`status ${q.status === "Resolved" ? "resolved" : "in-progress"}`}>
+              <div>
+                <h3>{q.subject}</h3>
+                <p>{q.date}</p>
+              </div>
+
+              <span
+                className={`status ${
+                  q.status === "Resolved" ? "resolved" : "in-progress"
+                }`}
+              >
                 {q.status}
               </span>
             </div>
           ))}
+
+          {/* EMPTY BOX */}
+          <div className="empty-box">
+            Additional query history...
+          </div>
         </div>
+
       </div>
-    
+    </div>
   );
 };
 export default SubmitQuery;
