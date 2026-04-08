@@ -12,7 +12,7 @@ import React, { useState } from "react";
 const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   const [subject, setSubject] = useState("");
   const [question, setQuestion] = useState("");
-  const [queries, setQueries] = useState([]);
+  const [queries, setQueries] = useState(queryRepository || []);
 
   const handleSubmit = () => {
     if (!subject || !question) return;
@@ -21,7 +21,11 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
       id: Date.now(),
       subject,
       question,
-      date: new Date().toLocaleDateString(),
+      date: new Date().toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }),
       status: "In Progress",
     };
 
