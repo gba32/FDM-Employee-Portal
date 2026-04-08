@@ -79,7 +79,7 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
           ))}
         </div>
       </div>
-    </div>
+    
   );
 };
 export default SubmitQuery;
