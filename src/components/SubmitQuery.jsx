@@ -10,9 +10,26 @@ import React, { useState } from "react";
 
 
 const SubmitQuery = ({ queryRepository, setRepository, user }) => {
-
   const [subject, setSubject] = useState("");
   const [question, setQuestion] = useState("");
+  const [queries, setQueries] = useState([]);
+
+  const handleSubmit = () => {
+    if (!subject || !question) return;
+
+    const newQuery = {
+      id: Date.now(),
+      subject,
+      question,
+      date: new Date().toLocaleDateString(),
+      status: "In Progress",
+    };
+
+    setQueries([newQuery, ...queries]);
+
+    setSubject("");
+    setQuestion("");
+  };
 
   if (!user) {
     return <p>Loading user data</p>;
