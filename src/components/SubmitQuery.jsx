@@ -1,3 +1,9 @@
+/*
+* Employment Query Submission
+* Sepehr Azadi-Harsini
+* 240540030
+*/
+
 import "../css/SubmitQuery.css";
 
 import { QueryStatus, QueryType } from "../services/mockPortalData";
