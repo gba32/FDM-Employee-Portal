@@ -48,6 +48,54 @@ export const AnnouncementStatus = Object.freeze({
   DELETED: "DELETED",
 });
 
+const LEAVE_STORAGE_KEY = "fdm-portal-leave-requests";
+
+function getSavedLeaveRequests() {
+  try {
+    const rawData = globalThis?.localStorage?.getItem(LEAVE_STORAGE_KEY);
+    if (!rawData) {
+      return null;
+    }
+
+    const parsedData = JSON.parse(rawData);
+    if (!Array.isArray(parsedData)) {
+      return null;
+    }
+
+    return parsedData;
+  } catch {
+    return null;
+  }
+}
+
+function saveLeaveRequests(leaveRequests) {
+  try {
+    globalThis?.localStorage?.setItem(
+      LEAVE_STORAGE_KEY,
+      JSON.stringify(leaveRequests),
+    );
+  } catch {
+    // Ignore storage failures to keep mock data usable in restricted environments.
+  }
+}
+
+function clearSavedLeaveRequests() {
+  try {
+    globalThis?.localStorage?.removeItem(LEAVE_STORAGE_KEY);
+  } catch {
+    // Ignore storage failures to keep mock data usable in restricted environments.
+  }
+}
+
+function getNextLeaveRequestId() {
+  const highestRequestId = Repository.LeaveRepository.reduce((maxId, request) => {
+    const parsedId = Number(request.requestID);
+    return Number.isFinite(parsedId) && parsedId > maxId ? parsedId : maxId;
+  }, 0);
+
+  return (highestRequestId + 1).toString();
+}
+
 //Repository abstract class
 export const Repository = {
   //USE CASE:
@@ -197,3 +245,50 @@ export const Repository = {
     },
   ],
 };
+
+const initialLeaveRepository = Repository.LeaveRepository.map(request => ({
+  ...request,
+}));
+
+const savedLeaveRequests = getSavedLeaveRequests();
+if (savedLeaveRequests) {
+  Repository.LeaveRepository = savedLeaveRequests;
+}
+
+export function addLeaveRequest({ startDate, endDate, reason, empID }) {
+  const totalDays =
+    Math.round(
+      Math.abs(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24),
+    ) + 1;
+
+  const newRequest = {
+    requestID: getNextLeaveRequestId(),
+    empID,
+    startDate,
+    endDate,
+    totalDays,
+    reason,
+    leaveStatus: LeaveStatus.PENDING,
+    resolverID: null,
+  };
+
+  Repository.LeaveRepository.push(newRequest);
+  saveLeaveRequests(Repository.LeaveRepository);
+  return newRequest;
+}
+
+// For testing purposes, to reset the leave requests to the initial state.
+// Use with caution as it will clear any changes made to the leave requests during the session.
+/*
+=> Use in browser console as so,
+  const { resetLeaveRequests } = await import('/src/services/mockPortalData.js');
+  resetLeaveRequests();
+*/
+export function resetLeaveRequests() {
+  clearSavedLeaveRequests();
+  Repository.LeaveRepository = initialLeaveRepository.map(request => ({
+    ...request,
+  }));
+
+  return Repository.LeaveRepository;
+}
