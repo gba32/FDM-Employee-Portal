@@ -2,6 +2,25 @@ import { useEffect, useRef, useState } from "react";
 import "../css/ModifyAccess.css";
 import { PermissionsType } from "../services/mockPortalData";
 
+class Permission {
+  constructor(name, enabled, editable) {
+    this.name = name;
+    this.enabled = enabled;
+    this.editable = editable;
+  }
+}
+
+function PermissionCheckBox(permission) {
+  return <>
+    <label name={permission.name}/>
+    <input type="checkbox" checked={permission.enabled} disabled={permission.editable ? undefined : "disabled"} />
+  </>
+}
+
+function PermissionBar({ permissions, }) {
+  return (<List items={permissions} template={PermissionCheckBox} />);
+}
+
 /**
  * 
  * @param {*} param0 
@@ -18,7 +37,7 @@ function SearchBar({ className, hint, onValueChanged }) {
       })
     });
     observer.observe(searchRef.current, { attributes: true });
-  }, searchRef) 
+  });
 
   return (<form >
     <input className={className} placeholder={hint} ref={searchRef} type="text" />
@@ -35,6 +54,7 @@ function EmployeeCard({ className, employee }) {
       <h4>{employee.name}</h4>
       <h5>{employee.email}</h5>
     </header>
+    <PermissionBar permissions={employee.permissions.map((p) => new Permission(p, true, false))} />
   </article>
 }
 
@@ -55,11 +75,16 @@ function SearchableList({ className, searchValue, items, template, nameFunction,
   let components = items
     .filter((_, index) => distances[index] >= threshold)
     .map((item, index) => ({ v: item, d: distances[index] }))
-    .sort((a, b) => a.d - b.d).map((item) => <li>{template(item.v)}</li>)
-    .slice(0, limit);
-    
+    .sort((a, b) => a.d - b.d)
+    .map((item) => item.v)
+
+
+  return <List className={className} items={components} template={template} limit={limit} />;
+}
+
+function List({ className, items, template, limit }) {
   return <ul className={className}>
-    {components}
+    {items.map((item) => template(item)).slice(0, limit)}
   </ul>
 }
 
@@ -77,16 +102,16 @@ const ModifyAccess = ({ repository, setRepository, user }) => {
     <section className="ModifyAccessContainer">
       <h2>User Access Permissions</h2>
       <h3>Manage user access and permissions across systems</h3>
-      <SearchBar 
-        className="searchBar" 
-        hint="Search users..." 
+      <SearchBar
+        className="searchBar"
+        hint="Search users..."
         onValueChanged={(newValue) => { setSearchValue(newValue) }} />
 
-      <SearchableList 
-        className="cardContainer" 
-        searchValue={searchValue} 
-        items={repository} 
-        template={(item) => <EmployeeCard employee={item} className="employeeCard" />} 
+      <SearchableList
+        className="cardContainer"
+        searchValue={searchValue}
+        items={repository}
+        template={(item) => <EmployeeCard employee={item} className="employeeCard" />}
         nameFunction={(item) => item.name} limit={2} />
     </section>
   );
