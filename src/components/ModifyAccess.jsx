@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../css/ModifyAccess.css";
 import { PermissionsType } from "../services/mockPortalData";
+import {SearchableList, List} from "./Lists";
 
 class PermissionState {
   /**
@@ -19,7 +20,7 @@ class PermissionState {
 class EmployeeRepository {
   /**
    * 
-   * @param {Array} employeeData 
+   * @param {Array<*>} employeeData 
    * @param {Function} setEmployeeData 
    */
   constructor(employeeData, setEmployeeData) {
@@ -28,8 +29,8 @@ class EmployeeRepository {
   }
 
   /**
-   * 
-   * @param {*} employeeId 
+   * Gets an employee from the data store
+   * @param {string} employeeId 
    * @returns 
    */
   getEmployeeById(employeeId) {
@@ -38,17 +39,15 @@ class EmployeeRepository {
   }
 
   /**
-   * 
-   * @param {*} employeeId 
-   * @param {*} permissionStates 
+   * Sets the permissions for an employee in the data store
+   * @param {string} employeeId 
+   * @param {Array<PermissionState>} permissionStates 
    */
   setEmployeePermissions(employeeId, permissionStates) {
     let employee = this.getEmployeeById(employeeId);
     if(employee !== null) {
       employee.permissions = permissionStates.filter((p) => p.enabled).map((p) => p.name);
-      console.log(this.employeeData);
       this.setEmployeeData(this.employeeData);
-      console.log(this.employeeData);
     }
   }
 }
@@ -57,7 +56,7 @@ class EmployeeRepository {
 class PermissionManager {
   /**
    * 
-   * @param {Array<string>} permissionList 
+   * @param {Array<string>} permissionList complete list of available permissions
    * @param {EmployeeRepository} employeeRepository 
    */
   constructor(permissionList, employeeRepository) {
@@ -67,7 +66,7 @@ class PermissionManager {
 
   /**
    * 
-   * @param {*} employeeId 
+   * @param {string} employeeId 
    * @returns 
    */
   getPermissionStates(employeeId) {
@@ -83,8 +82,8 @@ class PermissionManager {
 
   /**
    * 
-   * @param {*} employeeId 
-   * @param {*} permissionStates 
+   * @param {string} employeeId 
+   * @param {Array<PermissionState>} permissionStates 
    */
   setPermissions(employeeId, permissionStates) {
     this.employeeRepository.setEmployeePermissions(employeeId, permissionStates);
@@ -93,24 +92,32 @@ class PermissionManager {
 
 
 /**
- * 
- * @param {*} permission 
- * @param {*} onPermissionChanged 
+ * @param {PermissionState} permission 
+ * @callback onPermissionChanged 
  * @returns 
  */
-function PermissionCheckBox(permission, onPermissionChanged = () => { }) {
+function PermissionCheckBox(permission, onPermissionChanged = (permission, checked) => { }) {
   return <>
     <input type="checkbox" checked={permission.enabled} disabled={permission.editable} onChange={(event) => onPermissionChanged(permission, event.target.checked)} />
     <label>{permission.name}</label>
   </>
 }
 
+/**
+ * @typedef PermissionBarProps
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 function PermissionBar({ permissions, onPermissionChanged = () => { } }) {
   return (<List className="permissionBar" items={permissions} templateFunction={(p) => PermissionCheckBox(p, onPermissionChanged)} />);
 }
 
 /**
- * @typedef 
+ * @typedef SearchBarProps
+ * @property {string} className
+ * @property {string} hint
+ * @property {Function} 
  * 
  * @param {*} param0 
  * @returns 
@@ -197,14 +204,6 @@ const ModifyAccess = ({ repository, setRepository, user }) => {
   if (!user) {
     return <p>Loading user data</p> 
   }
-
-  const updatePermissions = (employee, permissions) => {
-    console.log(repository);
-    // hackish way to update repo
-    employee.permissions = permissions;
-    setRepository(repository);
-  };
-
 
   return (
     <section className="ModifyAccessContainer">
