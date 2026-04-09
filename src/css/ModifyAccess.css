@@ -2,7 +2,13 @@
     font-family: "Azeret Mono";
     padding: 80px;
     text-align: start;
+    background-color: #EFECEA;
 }
+
+.ModifyAccessContainer>h2{
+    font-family: "Azeret Mono";
+}
+
 
 .searchBar {
     display: flex;
@@ -22,7 +28,7 @@
     padding: 0;
 }
 
-.employeeCard { 
+.employeeCard {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -36,6 +42,41 @@
 }
 
 .employeeCard>header {
-    padding: 24px 24px 18px 24px;
+    margin: 0;  
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+}
+
+.employeeDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
     flex-shrink: 0;
+}
+
+.employeeDetails>* {
+    margin: 0;
+}
+
+.employeeDetails>h6 {
+    color:#6A7282;
+    font-weight: normal;
+}
+
+.permissionBar {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 8px;
+    gap: 12px;
+    overflow-x: scroll;
+}
+
+.permissionBar>li {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+    background: #F9FAFB;
 }
