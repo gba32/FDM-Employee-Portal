@@ -5,7 +5,7 @@
     background-color: #EFECEA;
 }
 
-.ModifyAccessContainer>h2{
+.ModifyAccessContainer>h2 {
     font-family: "Azeret Mono";
 }
 
@@ -42,7 +42,7 @@
 }
 
 .employeeCard>header {
-    margin: 0;  
+    margin: 0;
     padding: 12px;
     display: flex;
     gap: 12px;
@@ -60,7 +60,7 @@
 }
 
 .employeeDetails>h6 {
-    color:#6A7282;
+    color: #6A7282;
     font-weight: normal;
 }
 
@@ -79,4 +79,30 @@
     padding: 4px;
     border-radius: 4px;
     background: #F9FAFB;
+}
+
+.saveBar {
+    display: flex;
+    height: 32px;
+    padding: 12px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+
+
+.saveBar>button {
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid #C5FF00;
+    background: #FFF;
+}
+
+.saveBar>button:hover {
+    background: #EEE;
+}
+
+.saveBar>button:active {
+    background: #DDD;
 }
