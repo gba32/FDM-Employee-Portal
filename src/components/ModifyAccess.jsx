@@ -3,6 +3,12 @@ import "../css/ModifyAccess.css";
 import { PermissionsType } from "../services/mockPortalData";
 
 class PermissionState {
+  /**
+   * 
+   * @param {string} name 
+   * @param {boolean} enabled 
+   * @param {boolean} editable 
+   */
   constructor(name, enabled, editable) {
     this.name = name;
     this.enabled = enabled;
@@ -21,11 +27,21 @@ class EmployeeRepository {
     this.setEmployeeData = setEmployeeData;
   }
 
+  /**
+   * 
+   * @param {*} employeeId 
+   * @returns 
+   */
   getEmployeeById(employeeId) {
     let employee = this.employeeData.find((item) => item.id === employeeId);
     return employee !== undefined ? employee : null;
   }
 
+  /**
+   * 
+   * @param {*} employeeId 
+   * @param {*} permissionStates 
+   */
   setEmployeePermissions(employeeId, permissionStates) {
     let employee = this.getEmployeeById(employeeId);
     if(employee !== null) {
@@ -49,6 +65,11 @@ class PermissionManager {
     this.employeeRepository = employeeRepository
   }
 
+  /**
+   * 
+   * @param {*} employeeId 
+   * @returns 
+   */
   getPermissionStates(employeeId) {
     let employee = this.employeeRepository.getEmployeeById(employeeId);
 
@@ -60,6 +81,11 @@ class PermissionManager {
     return permissionMap.map((p) => new PermissionState(p.name, p.enabled, false))
   }
 
+  /**
+   * 
+   * @param {*} employeeId 
+   * @param {*} permissionStates 
+   */
   setPermissions(employeeId, permissionStates) {
     this.employeeRepository.setEmployeePermissions(employeeId, permissionStates);
   }
@@ -253,10 +279,11 @@ const ModifyAccess = ({ repository, setRepository, user }) => {
           employee={item}
           permissions={permissionList}
           className="employeeCard"
+          permissionManager = {permissionManager}
           onPermissionsChanged={(newPermissions) => { 
             permissionManager.setPermissions(item.id, newPermissions);
           }} />}
-        nameFunction={(item) => item.name} limit={2}
+        nameFunction={(item) => item.name} limit={3}
         keyFunction={(item) => item.id} />
     </section>
   );
