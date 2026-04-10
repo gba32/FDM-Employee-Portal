@@ -1,4 +1,7 @@
 import "../css/ApproveLeave.css";
+//LIST OF TASKS: FORMAT DATES, add a click to view more when processed requests hit to 3
+//use pop up similar to annual leave request
+//CHECK VIA console.log order of processed requests displayed
 
 import { LeaveActionType, LeaveStatus } from "../services/mockPortalData";
 const ApproveLeave = ({
@@ -103,82 +106,113 @@ const ApproveLeave = ({
   //instead manager reject request and send REJECTED_REQUEST to employee with reason
   return (
     <div className="ApproveLeaveContainer">
-      <h1>Approve Leave Requests</h1>
-      <p>Review and approve annual leave requests from your team</p>
-      <p>Logged in as {user.name}</p>
+      <div className="subContainer">
+        <header className="approveHeader">
+          <div className="heading">
+            <h1>Approve Leave Requests</h1>
+          </div>
 
-      <ul className="PendingRequestContainer">
-        {pendingCount > 0 ? (
-          <h2>Pending Requests ({pendingCount})</h2>
-        ) : (
-          <p>No pending requests at this time.</p>
-        )}
+          <div className="paragraph">
+            <p>Review and approve annual leave requests.</p>
+          </div>
+          {/* <p>Logged in as {user.name}</p> */}
+        </header>
 
-        {/* display pending leave request on panel */}
-        {/* DYNAMIC LIST: use .map() to loop through the leaveRepo array and create a <li> item for each pending request */}
-        {/* find the name of employee based on empId from leave request */}
-        {/* find() returns first element in array*/}
-        {leaveRepo
-          .filter((leave) => leave.leaveStatus === LeaveStatus.PENDING)
-          .map((leave) => {
-            const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
-            // React standard to use unique id to track each leave request
-            return (
-              <li key={leave.requestID}>
-                <div className="pendingRequestTop">
-                  <p>{foundEmp.name}</p>
-                  <p>
-                    {leave.startDate}-{leave.endDate}
-                  </p>
-                </div>
+        <section className="requestContainer">
+          <ul className="PendingRequestContainer">
+            {pendingCount > 0 ? (
+              <h2>Pending Requests ({pendingCount})</h2>
+            ) : (
+              <p className="noPendingLabel">
+                No pending requests at this time.
+              </p>
+            )}
 
-                <div className="pendingRequestBottom">
-                  <p>{leave.reason}</p>
-                </div>
-                {/*2a)get the leave balance via employee's id */}
-                <button
-                  onClick={() => handleApprove(foundEmp.leaveBalance, leave)}
-                >
-                  Approve
-                </button>
-                {/* <button>Reject</button> */}
-                <br />
-                <br />
-              </li>
-            );
-          })}
-      </ul>
+            {/* display pending leave request on panel */}
+            {/* DYNAMIC LIST: use .map() to loop through the leaveRepo array and create a <li> item for each pending request */}
+            {/* find the name of employee based on empId from leave request */}
+            {/* find() returns first element in array*/}
+            {leaveRepo
+              .filter((leave) => leave.leaveStatus === LeaveStatus.PENDING)
+              .map((leave) => {
+                const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
+                // React standard to use unique id to track each leave request
+                return (
+                  <li key={leave.requestID} className="requestBox">
+                    <div className="pendingRequestTop">
+                      <div className="profilePicture">
+                        {foundEmp.name.charAt(0)}
+                      </div>
+                      <section className="details">
+                        <p>{foundEmp.name}</p>
+                        <p className="dates">
+                          {leave.startDate}-{leave.endDate}
+                        </p>
+                      </section>
+                    </div>
 
-      <ul className="ProcessedContainer">
-        <h2>Recently Processed</h2>
-        {/* show recently processed leave requests based on resolverID */}
-        {leaveRepo
-          .filter(
-            (leave) =>
-              leave.leaveStatus !== LeaveStatus.PENDING &&
-              leave.resolverID === user.id,
-          )
-          .map((leave) => {
-            const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
-            // React standard to use unique id to track each leave request
-            return (
-              <li key={leave.requestID}>
-                <div className="processedRequestTop">
-                  <p>Status: {leave.leaveStatus}</p>
+                    <div className="pendingRequestBottom">
+                      <p>{leave.reason}</p>
 
-                  <p>{foundEmp.name}</p>
-                  <p>
-                    {leave.startDate}-{leave.endDate}
-                  </p>
-                  <p>{leave.reason}</p>
-                </div>
+                      {/*2a)get the leave balance via employee's id */}
+                      <button
+                        className="approveBtn"
+                        onClick={() =>
+                          handleApprove(foundEmp.leaveBalance, leave)
+                        }
+                      >
+                        Approve
+                      </button>
+                      {/* <button>Reject</button> */}
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
 
-                <br />
-                <br />
-              </li>
-            );
-          })}
-      </ul>
+          <ul className="ProcessedContainer">
+            <h2>Recently Processed</h2>
+            {/* show recently processed leave requests based on resolverID */}
+            {leaveRepo
+              .filter(
+                (leave) =>
+                  leave.leaveStatus !== LeaveStatus.PENDING &&
+                  leave.resolverID === user.id,
+              )
+              .map((leave) => {
+                const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
+                // React standard to use unique id to track each leave request
+                return (
+                  <li key={leave.requestID} className="requestBox">
+                    <div className="processedRequestTop">
+                      <section className="details">
+                        <p className="name">{foundEmp.name}</p>
+                        <p className="dates">
+                          {leave.startDate}-{leave.endDate}
+                        </p>
+                      </section>
+                      <section className="statusLabel">
+                        <p
+                          className={
+                            leave.leaveStatus === LeaveStatus.APPROVED
+                              ? "approvedLabel"
+                              : "rejectedLabel"
+                          }
+                        >
+                          {leave.leaveStatus}
+                        </p>
+                      </section>
+                    </div>
+
+                    <div className="processedRequestBottom">
+                      <p>{leave.reason}</p>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+        </section>
+      </div>
     </div>
   );
 };
