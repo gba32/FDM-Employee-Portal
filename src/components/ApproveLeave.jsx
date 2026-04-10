@@ -1,7 +1,9 @@
+import Popup from "reactjs-popup";
 import "../css/ApproveLeave.css";
 //LIST OF TASKS: FORMAT DATES, add a click to view more when processed requests hit to 3
-//use pop up similar to annual leave request
-//CHECK VIA console.log order of processed requests displayed
+//use pop up similar to annual leave request (done logic. css not done)
+//CHECK VIA console.log order of processed requests displayed (fixed via .sort() method)
+//stylise notification message
 
 import { LeaveActionType, LeaveStatus } from "../services/mockPortalData";
 const ApproveLeave = ({
@@ -19,6 +21,54 @@ const ApproveLeave = ({
   //calculate the number of pending requests
   const pendingCount = leaveRepo.filter(
     (leave) => leave.leaveStatus === LeaveStatus.PENDING,
+  ).length;
+
+  //return processed requests that are not pending in requestID order
+  const processedRequests = leaveRepo
+    .filter(
+      (leave) =>
+        leave.leaveStatus !== LeaveStatus.PENDING &&
+        leave.resolverID === user.id,
+    )
+    .sort((a, b) => a.requestID - b.requestID);
+
+  // return emp object
+  const returnProcessedRequestDetails = (leave) => {
+    const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
+
+    return (
+      <li key={leave.requestID} className="requestBox">
+        <div className="processedRequestTop">
+          <section className="details">
+            <p className="name">{foundEmp.name}</p>
+            <p className="dates">
+              {leave.startDate}-{leave.endDate}
+            </p>
+          </section>
+          <section className="statusLabel">
+            <p
+              className={
+                leave.leaveStatus === LeaveStatus.APPROVED
+                  ? "approvedLabel"
+                  : "rejectedLabel"
+              }
+            >
+              {leave.leaveStatus}
+            </p>
+          </section>
+        </div>
+
+        <div className="processedRequestBottom">
+          <p>{leave.reason}</p>
+        </div>
+      </li>
+    );
+  };
+
+  //get processed requests if status is not pending
+  const processedRequestsCount = leaveRepo.filter(
+    (leave) =>
+      leave.leaveStatus !== LeaveStatus.PENDING && leave.resolverID === user.id,
   ).length;
 
   //2. done as a function handler: If manager clicked the approve button displayed on one of the annual leave request object..
@@ -134,6 +184,7 @@ const ApproveLeave = ({
             {/* find() returns first element in array*/}
             {leaveRepo
               .filter((leave) => leave.leaveStatus === LeaveStatus.PENDING)
+              .sort((a, b) => a.requestID - b.requestID)
               .map((leave) => {
                 const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
                 // React standard to use unique id to track each leave request
@@ -172,44 +223,36 @@ const ApproveLeave = ({
 
           <ul className="ProcessedContainer">
             <h2>Recently Processed</h2>
-            {/* show recently processed leave requests based on resolverID */}
-            {leaveRepo
-              .filter(
-                (leave) =>
-                  leave.leaveStatus !== LeaveStatus.PENDING &&
-                  leave.resolverID === user.id,
-              )
-              .map((leave) => {
-                const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
-                // React standard to use unique id to track each leave request
-                return (
-                  <li key={leave.requestID} className="requestBox">
-                    <div className="processedRequestTop">
-                      <section className="details">
-                        <p className="name">{foundEmp.name}</p>
-                        <p className="dates">
-                          {leave.startDate}-{leave.endDate}
-                        </p>
-                      </section>
-                      <section className="statusLabel">
-                        <p
-                          className={
-                            leave.leaveStatus === LeaveStatus.APPROVED
-                              ? "approvedLabel"
-                              : "rejectedLabel"
-                          }
-                        >
-                          {leave.leaveStatus}
-                        </p>
-                      </section>
-                    </div>
+            {/* show recently processed leave requests based on order  resolverID */}
+            {/* show only the first 3 requests */}
+            {processedRequests.slice(0, 3).map(returnProcessedRequestDetails)}
 
-                    <div className="processedRequestBottom">
-                      <p>{leave.reason}</p>
+            <div className="requestsHistoryContainer">
+              {/* check when processed requests is greater than 3 */}
+              {processedRequestsCount >= 3 && (
+                <Popup
+                  trigger={<button>Click to view more</button>}
+                  modal
+                  nested
+                >
+                  {(close) => (
+                    <div className="modal">
+                      <div className="content">
+                        <h2>Additional Request History</h2>
+                        {/* get remaining processed leave requests */}
+                        <ul>
+                          {/* show recently processed leave requests based on resolverID */}
+                          {processedRequests.map(returnProcessedRequestDetails)}
+                        </ul>
+                      </div>
+                      <div className="closePopUp">
+                        <button onClick={() => close()}>X</button>
+                      </div>
                     </div>
-                  </li>
-                );
-              })}
+                  )}
+                </Popup>
+              )}
+            </div>
           </ul>
         </section>
       </div>
