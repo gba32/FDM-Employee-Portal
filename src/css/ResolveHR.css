@@ -7,6 +7,7 @@
     color: #1a1a1a;
 }
 
+/* Two-column layout for pending and resolved queries */
 .columns-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -22,7 +23,16 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* Header */
+/* Query details */
+.query-submitter {
+    text-align: left;
+}
+.query-date {
+    text-align: left;
+    margin-bottom: 1em;
+    font-size: 0.8em;
+}
+
 .ResolveHRContainer h1 {
     color: #1a1a1a;
 }
@@ -57,7 +67,7 @@
 }
 
 /* Resolve button (same style as submit button) */
-.ResolveHRContainer button {
+.resolve-button {
     background: #c6f135;
     border: none;
     border-radius: 8px;
