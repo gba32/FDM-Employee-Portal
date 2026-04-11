@@ -3,4 +3,45 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 4rem;
+}
+
+.ann-left-col {
+    background-color: #FFFFFF;
+    width: clamp(20em, 70%, 25em);
+
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ann-left-title {
+    margin: 0;
+}
+
+.ann-left-col form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1.5rem;
+}
+
+.ann-left-col input, .ann-left-col textarea {
+    border: none;
+    outline: none;
+    background: none;
+    font: inherit;
+}
+
+.publish-announcement-btn {
+    border: none;
+    background: #C5FF00;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.title-box, .content-box {
+    display: flex;
+    flex-direction: column;
 }

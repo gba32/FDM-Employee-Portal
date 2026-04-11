@@ -64,23 +64,34 @@ const InternalAnnouncement = ({ repository, setRepository, user }) => {
       <div className="announcement-container">
         <div className="ann-left-col">
           {/* Create Announcement */}
+          <h3 className="ann-left-title">Create Announcement</h3>
           <form onSubmit={handlePublish} action="">
-            <input 
-              type="text"
-              value={title}
-              onChange={(e)=>setTitle(e.target.value)} 
-            />
-            <textarea 
-              name="" 
-              id=""
-              value={content}
-              onChange={(e)=> setContent(e.target.value)}
-            >
-
-            </textarea>
+            <div className="title-box">
+              <label htmlFor="title">Title</label>
+              <input 
+                type="text"
+                name="title"
+                placeholder="Announcement title..."
+                id="title"
+                value={title}
+                onChange={(e)=>setTitle(e.target.value)} 
+              />
+            </div>
+            <div className="content-box">
+              <label htmlFor="content">Content</label>
+              <textarea 
+                name="content" 
+                id="content"
+                placeholder="Write your announcement here..."
+                value={content}
+                onChange={(e)=> setContent(e.target.value)}
+              >
+              </textarea>
+            </div>
             <button
+              className="publish-announcement-btn"
               type="submit"
-            >Submit
+            >Publish Announcement
             </button>
           </form>
         </div>
