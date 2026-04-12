@@ -25,7 +25,7 @@ const LoginPage = ({ onLogin, users }) => {
     <div className="loginContainer">
       <form onSubmit={handleLoginSubmit} className="loginForm">
         <div class="infoContainer">
-          <img src="/src/assets/logo.png" id="fdmLogo" />
+          <img src="/src/images/logo.png" id="fdmLogo" />
           <h2>Employee Portal</h2>
           <h3>Sign in to continue</h3>
         </div>
