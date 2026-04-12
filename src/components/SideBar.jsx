@@ -25,7 +25,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
             className={activeTab === "home" ? "active" : ""}
             onClick={() => setActiveTab("home")}
           >
-            <img src="src/images/whiteSidebarIcons/Home.svg" alt="Home" />
+            <img src="src/images/sidebar-icons/Home.svg" alt="Home" />
             <span className="sidebarLabel">Home</span>
           </button>
 
@@ -35,7 +35,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
             onClick={() => setActiveTab("submitEmpQuery")}
           >
             <img
-              src="src/images/whiteSidebarIcons/EmploymentQuery.svg"
+              src="src/images/sidebar-icons/EmploymentQuery.svg"
               alt="Employment Query"
             />
             <span className="sidebarLabel">Employment Query</span>
@@ -48,7 +48,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               onClick={() => setActiveTab("submitLeave")}
             >
               <img
-                src="src/images/whiteSidebarIcons/RequestLeave.png"
+                src="src/images/sidebar-icons/RequestLeave.png"
                 alt="request leave"
               />
               <span className="sidebarLabel">Request Leave</span>
@@ -62,7 +62,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               onClick={() => setActiveTab("itResolve")}
             >
               <img
-                src="src/images/blackSidebarIcons/TechnicalQueries.svg"
+                src="src/images/sidebar-icons/TechnicalQueries.png"
                 alt="Technical Queries"
               />
               <span className="sidebarLabel">Technical Queries</span>
@@ -74,7 +74,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "modifyAccess" ? "active" : ""}
               onClick={() => setActiveTab("modifyAccess")}
             >
-              <img src="src/images/whiteSidebarIcons/UserAccess.svg" alt="User Access" />
+              <img src="src/images/sidebar-icons/User Access.svg" alt="User Access" />
               <span className="sidebarLabel">User Access</span>
             </button>
           )}
@@ -84,7 +84,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "hrResolve" ? "active" : ""}
               onClick={() => setActiveTab("hrResolve")}
             >
-              <img src="src/images/whiteSidebarIcons/HRQuery.svg" alt="HR Queries" />
+              <img src="src/images/sidebar-icons/HRQuery.svg" alt="HR Queries" />
               <span className="sidebarLabel">HR Queries</span>
             </button>
           )}
@@ -95,7 +95,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               onClick={() => setActiveTab("announcement")}
             >
               <img
-                src="src/images/whiteSidebarIcons/Announcements.svg"
+                src="src/images/sidebar-icons/Announcements.svg"
                 alt="Announcements"
               />
               <span className="sidebarLabel">Announcements</span>
@@ -107,7 +107,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "approveLeave" ? "active" : ""}
               onClick={() => setActiveTab("approveLeave")}
             >
-              <img src="src/images/whiteSidebarIcons/ApproveLeave.svg" alt="Approve Leave" />
+              <img src="src/images/sidebar-icons/ApproveLeave.svg" alt="Approve Leave" />
               <span className="sidebarLabel">Approve Leave</span>
             </button>
           )}
@@ -117,7 +117,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
         <div className="logout">
           <hr />
           <button onClick={onLogout}>
-            <img src="src/images/whiteSidebarIcons/Logout.svg" alt="logout" />
+            <img src="src/images/sidebar-icons/Logout.svg" alt="logout" />
             <span className="sidebarLabel logoutLabel">Logout</span>
           </button>
         </div>
