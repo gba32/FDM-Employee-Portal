@@ -1,0 +1,109 @@
+.ModifyAccessContainer {
+    font-family: "Azeret Mono";
+    padding: 80px;
+    text-align: start;
+    background-color: #EFECEA;
+}
+
+.ModifyAccessContainer>h2 {
+    font-family: "Azeret Mono";
+}
+
+
+.searchBar {
+    display: flex;
+    padding: 12px 4px;
+    align-items: center;
+
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.00);
+    background: #F3F3F5;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.employeeCard {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    flex-shrink: 0;
+    align-self: stretch;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: #FFF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.10);
+}
+
+.employeeCard>header {
+    margin: 0;
+    padding: 12px;
+    display: flex;
+    gap: 12px;
+}
+
+.employeeDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    flex-shrink: 0;
+}
+
+.employeeDetails>* {
+    margin: 0;
+}
+
+.employeeDetails>h6 {
+    color: #6A7282;
+    font-weight: normal;
+}
+
+.permissionBar {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 8px;
+    gap: 12px;
+    max-width: 90%;
+    overflow-x: scroll;
+}
+
+.permissionBar>li {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+    background: #F9FAFB;
+}
+
+.saveBar {
+    display: flex;
+    height: 32px;
+    padding: 12px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+
+
+.saveBar>button {
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid #C5FF00;
+    background: #FFF;
+}
+
+.saveBar>button:hover {
+    background: #EEE;
+}
+
+.saveBar>button:active {
+    background: #DDD;
+}

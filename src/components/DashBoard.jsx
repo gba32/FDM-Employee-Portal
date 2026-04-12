@@ -91,6 +91,7 @@ const Dashboard = ({
 
         {activeTab === "hrResolve" && user.role === "HR" && (
           <ResolveHR
+            employeeRepository={employeeRepository}
             repository={queryRepository}
             setRepository={setQueryRepository}
             user={user}
