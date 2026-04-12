@@ -1,3 +1,9 @@
+.dashboardContainer{
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+}
+
 .homeContainer h2 {
   color: rgb(193, 21, 84);
 }

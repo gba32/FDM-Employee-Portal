@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import "../css/Dashboard.css";
+import "../css/DashBoard.css";
 
 import SideBar from "./SideBar";
 import SubmitQuery from "./SubmitQuery";
@@ -24,14 +24,15 @@ const Dashboard = ({
   onLogout,
   triggerNotification,
 }) => {
-  //tracks which use case interface to show. home is the default page to view
+  //tracks which use case interface to show. is the default page to view
   const [activeTab, setActiveTab] = useState("home");
 
   return (
-    <div>
+    <div className="dashboardContainer">
       {/* sidebar always shown on use case interface and home page*/}
       <SideBar
         userRole={user.role}
+        activeTab={activeTab}
         setActiveTab={setActiveTab}
         onLogout={onLogout}
       ></SideBar>

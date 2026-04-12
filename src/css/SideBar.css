@@ -1,0 +1,112 @@
+.sideBarContainer {
+    background: #C5FF00;
+    width: 16rem;
+    align-self: flex-start;
+
+    color: #000;
+    font-family: "Azeret Mono";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    
+    margin-right: 16rem;
+}
+
+.sideBarContainer header {
+    display: flex;
+    width: 16rem;
+    height: 6.5rem;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    flex-shrink: 0;
+}
+
+.sideBarContainer header img {
+    width: 85px;
+    height: 48px;
+    flex-shrink: 0;
+    aspect-ratio: 85/48;
+}
+
+.navigationContainer {
+    background: black;
+    display: flex;
+    padding: 1rem 1rem 0 1rem;
+    flex-direction: column;
+    align-items:flex-start;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    height: 63vh;
+}
+
+.navigationContainer button{
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    color: #FFF;
+    font-family: "Azeret Mono";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 24px; /* 150% */
+    padding: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navigationContainer button:hover {
+    background: #333;
+    transition: background 0.3s ease;
+}
+.navigationContainer button img {
+    margin-right: 0.5rem;
+    transform: translateY(3px);
+    width: 16px;
+    height: 16px;
+}
+
+.navigationContainer button.active {
+    background: #C5FF00;
+    color: black;
+}
+.navigationContainer button.active img {
+    filter: invert(1);
+}
+
+.logout {
+    background: black;
+    border: none;
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    flex-shrink: 0;
+    height: calc(15vh - 1rem);
+}
+
+.logout button {
+    border-radius: 8px;
+    border: 1px solid #779908;
+    display: flex;
+    padding: 8px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    align-self: stretch;
+    color: #759606;
+    text-align: center;
+    font-family: "Azeret Mono";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 142.857% */
+}
+
+.logout button img{
+    filter: brightness(0.7);
+}

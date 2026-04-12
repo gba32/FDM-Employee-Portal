@@ -5,7 +5,7 @@
     background-color: #EFECEA;
     font-weight: 500;
     min-height: 100vh;
-    padding-left: 10em; /*Space for the sidebar, should be increased when the sidebar symbol is clicked */
+    /* padding-left: 10em;  Space for the sidebar, should be increased when the sidebar symbol is clicked */
 }
 
 .layout {
