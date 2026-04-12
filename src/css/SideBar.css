@@ -11,9 +11,16 @@
     line-height: 20px; /* 142.857% */
     
     margin-right: 16rem;
+    transition: width 0.25s ease, margin-right 0.25s ease;
+}
+
+.sideBarContainer.collapsed {
+    width: 4.5rem;
+    margin-right: 4.5rem;
 }
 
 .sideBarContainer header {
+    position: relative;
     display: flex;
     width: 16rem;
     height: 6.5rem;
@@ -31,6 +38,34 @@
     aspect-ratio: 85/48;
 }
 
+.sideBarContainer.collapsed header {
+    width: 4.5rem;
+    padding: 1.5rem 0.5rem 0 0.5rem;
+    align-items: center;
+}
+
+.sideBarContainer.collapsed header img {
+    width: 65px;
+    height: 38px;
+    transform: translateX(-7px);
+}
+
+.sideBarContainer.collapsed header p {
+    display: none;
+}
+
+.sidebarToggle {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    border: none;
+    background: transparent;
+    color: #000;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
 .navigationContainer {
     background: black;
     display: flex;
@@ -40,6 +75,11 @@
     gap: 0.5rem;
     flex-shrink: 0;
     height: 63vh;
+}
+
+.sideBarContainer.collapsed .navigationContainer {
+    padding: 1rem 0.5rem 0 0.5rem;
+    align-items: center;
 }
 
 .navigationContainer button{
@@ -56,6 +96,28 @@
     padding: 8px;
     align-items: center;
     cursor: pointer;
+}
+
+.navigationContainer button .sidebarLabel,
+.logout button .logoutLabel {
+    display: inline;
+}
+
+.sideBarContainer.collapsed .navigationContainer button,
+.sideBarContainer.collapsed .logout button {
+    justify-content: center;
+    width: 100%;
+    padding: 8px;
+}
+
+.sideBarContainer.collapsed .navigationContainer button img,
+.sideBarContainer.collapsed .logout button img {
+    margin-right: 0;
+}
+
+.sideBarContainer.collapsed .navigationContainer button .sidebarLabel,
+.sideBarContainer.collapsed .logout button .sidebarLabel {
+    display: none;
 }
 
 .navigationContainer button:hover {
@@ -89,6 +151,11 @@
     height: calc(15vh - 1rem);
 }
 
+.sideBarContainer.collapsed .logout {
+    padding: 1rem 0.5rem;
+    align-items: center;
+}
+
 .logout button {
     border-radius: 8px;
     border: 1px solid #779908;
@@ -109,4 +176,14 @@
 
 .logout button img{
     filter: brightness(0.7);
+}
+
+.sideBarContainer.collapsed .logout button {
+    gap: 0;
+}
+
+.logout hr{
+    border: none;
+    border-top: 1px solid rgb(165, 210, 237);
+    width: 100%;
 }

@@ -1,10 +1,22 @@
+import { useState } from "react";
 import "../css/SideBar.css";
+
 const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
-    <div className="sideBarContainer">
+    <div className={`sideBarContainer ${isCollapsed ? "collapsed" : ""}`}>
       <header>
         <img src="src\images\logoBlack.png" alt="FDM" />
-        <p>Employement Portal</p>
+        {!isCollapsed && <p>Employement Portal</p>}
+        <button
+          type="button"
+          className="sidebarToggle"
+          onClick={() => setIsCollapsed((current) => !current)}
+          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {isCollapsed ? ">>" : "<<"}
+        </button>
       </header>
 
       <nav>
@@ -12,13 +24,21 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
           <button
             className={activeTab === "home" ? "active" : ""}
             onClick={() => setActiveTab("home")}
-          ><img src="src/images/whiteSidebarIcons/Home.svg" alt="Home" />Home</button>
+          >
+            <img src="src/images/whiteSidebarIcons/Home.svg" alt="Home" />
+            <span className="sidebarLabel">Home</span>
+          </button>
+
           {/* visible to everyone */}
           <button
             className={activeTab === "submitEmpQuery" ? "active" : ""}
             onClick={() => setActiveTab("submitEmpQuery")}
           >
-            <img src="src/images/whiteSidebarIcons/EmploymentQuery.svg" alt="Employment Query" />Employment Query
+            <img
+              src="src/images/whiteSidebarIcons/EmploymentQuery.svg"
+              alt="Employment Query"
+            />
+            <span className="sidebarLabel">Employment Query</span>
           </button>
 
           {/* Manager doesnt see the leave request */}
@@ -27,7 +47,11 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "submitLeave" ? "active" : ""}
               onClick={() => setActiveTab("submitLeave")}
             >
-              <img src="src/images/whiteSidebarIcons/RequestLeave.png" alt="request leave" />Request Leave
+              <img
+                src="src/images/whiteSidebarIcons/RequestLeave.png"
+                alt="request leave"
+              />
+              <span className="sidebarLabel">Request Leave</span>
             </button>
           )}
 
@@ -37,7 +61,11 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "itResolve" ? "active" : ""}
               onClick={() => setActiveTab("itResolve")}
             >
-              <img src="src/images/blackSidebarIcons/TechnicalQueries.svg" alt="Technical Queries" />Technical Queries
+              <img
+                src="src/images/blackSidebarIcons/TechnicalQueries.svg"
+                alt="Technical Queries"
+              />
+              <span className="sidebarLabel">Technical Queries</span>
             </button>
           )}
 
@@ -46,7 +74,8 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "modifyAccess" ? "active" : ""}
               onClick={() => setActiveTab("modifyAccess")}
             >
-              <img src="src/images/whiteSidebarIcons/UserAccess.svg" alt="User Access" />User Access
+              <img src="src/images/whiteSidebarIcons/UserAccess.svg" alt="User Access" />
+              <span className="sidebarLabel">User Access</span>
             </button>
           )}
 
@@ -55,7 +84,8 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "hrResolve" ? "active" : ""}
               onClick={() => setActiveTab("hrResolve")}
             >
-              <img src="src/images/whiteSidebarIcons/HRQuery.svg" alt="HR Queries" />HR Queries
+              <img src="src/images/whiteSidebarIcons/HRQuery.svg" alt="HR Queries" />
+              <span className="sidebarLabel">HR Queries</span>
             </button>
           )}
 
@@ -64,7 +94,11 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "announcement" ? "active" : ""}
               onClick={() => setActiveTab("announcement")}
             >
-              <img src="src/images/whiteSidebarIcons/Announcements.svg" alt="Announcements" />Announcements
+              <img
+                src="src/images/whiteSidebarIcons/Announcements.svg"
+                alt="Announcements"
+              />
+              <span className="sidebarLabel">Announcements</span>
             </button>
           )}
 
@@ -73,14 +107,19 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "approveLeave" ? "active" : ""}
               onClick={() => setActiveTab("approveLeave")}
             >
-              <img src="src/images/whiteSidebarIcons/ApproveLeave.svg" alt="Approve Leave" />Approve Leave
+              <img src="src/images/whiteSidebarIcons/ApproveLeave.svg" alt="Approve Leave" />
+              <span className="sidebarLabel">Approve Leave</span>
             </button>
           )}
         </div>
 
         {/* logout button shown to everyone */}
-        <div className="logout" >
-          <button onClick={onLogout}> <img src="src/images/whiteSidebarIcons/Logout.svg" alt="logout" />Logout </button>
+        <div className="logout">
+          <hr />
+          <button onClick={onLogout}>
+            <img src="src/images/whiteSidebarIcons/Logout.svg" alt="logout" />
+            <span className="sidebarLabel logoutLabel">Logout</span>
+          </button>
         </div>
       </nav>
     </div>
