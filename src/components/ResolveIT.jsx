@@ -1,7 +1,7 @@
 import "../css/ResolveIT.css";
 import { useState } from "react";
 import { QueryStatus, QueryType } from "../services/mockPortalData";
-import resolveHRIcon from '../images/resolveHR-icon.svg';
+//import resolveHRIcon from '../images/resolveHR-icon.svg';
 // ADD NAMES OF EMPLOYEES INSTEAD OF IDS
 // ADD DATE IN BETTER FORMAT
 // ADD COLOUR CODING FOR STATUS (GREEN FOR RESOLVED, ORANGE FOR PENDING, RED FOR REJECTED)
@@ -44,7 +44,7 @@ const ResolveIT = ({ repository, setRepository, user }) => {
     setRepository(updatedQueries);
   };
 
-  const questionlogo = <img src={resolveHRIcon} alt="[Question Icon]" />;
+  // const questionlogo = <img src={resolveHRIcon} alt="[Question Icon]" />;
 
   return (
     // Header and description of the page
