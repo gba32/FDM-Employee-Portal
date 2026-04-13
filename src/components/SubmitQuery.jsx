@@ -26,10 +26,20 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
         month: "short",
         year: "numeric",
       }),
-      status: "In Progress",
+      status: QueryStatus.IN_PROGRESS, 
+      type: QueryType.EMPLOYMENT,      
     };
 
-    setQueries([newQuery, ...queries]);
+    const updatedQueries = [newQuery, ...queries];
+
+    // update local state
+    setQueries(updatedQueries);
+
+    // update shared/global repository
+    setRepository(updatedQueries);
+
+    // persist to browser
+    localStorage.setItem("queries", JSON.stringify(updatedQueries));
 
     setSubject("");
     setQuestion("");
