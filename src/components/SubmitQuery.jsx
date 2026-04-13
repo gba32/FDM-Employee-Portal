@@ -61,7 +61,24 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   return (
     <div className="query-page">
       <h1 className="title">
-        <span className="icon">💬</span> Employment Query
+        <span className="icon" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+              stroke="#C5FF00"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+        Employment Query
       </h1>
 
       <p className="subtitle">
@@ -74,7 +91,7 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
         <div className="query-form">
           <h2>Submit New Query</h2>
 
-          <label>Subject</label>
+          <label className="field-label">Subject</label>
           <input
             type="text"
             value={subject}
@@ -82,7 +99,7 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
             placeholder="Brief subject line..."
           />
 
-          <label>Your Question</label>
+          <label className="field-label">Your Question</label>
           <textarea
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
@@ -100,14 +117,14 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
 
           {queries.map((q) => (
             <div key={q.id} className="query-card">
-              <div>
+              <div className="query-text">
                 <h3>{q.subject}</h3>
                 <p>{q.date}</p>
               </div>
 
               <span
                 className={`status ${
-                  q.status === "Resolved" ? "resolved" : "in-progress"
+                  q.status === QueryStatus.RESOLVED ? "resolved" : "in-progress"
                 }`}
               >
                 {q.status}

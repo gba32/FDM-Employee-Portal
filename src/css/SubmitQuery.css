@@ -1,14 +1,21 @@
 .query-page {
-  padding: 48px;
-  font-family: 'Inter', sans-serif;
-  background: #f3f4f6;
+  width: 100%;
   min-height: 100vh;
+  padding: 48px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: #EFECEA;
 }
 
 /* TITLE */
 .title {
-  font-size: 28px;
-  font-weight: 700;
+  color: #0A0A0A;
+  font-family: "Azeret Mono";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -16,20 +23,26 @@
 }
 
 .icon {
-  color: #b6ff00;
-  font-size: 20px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .subtitle {
-  color: #6b7280;
-  font-size: 14px;
-  margin-bottom: 32px;
+  color: #4A5565;
+  font-family: "Azeret Mono";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; 
 }
 
 /* LAYOUT */
 .query-container {
   display: flex;
-  gap: 40px;
+  gap: 48px;
   align-items: flex-start;
 }
 
@@ -43,30 +56,47 @@
 }
 
 .query-form h2 {
-  font-size: 18px;
-  font-weight: 600;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
   margin-bottom: 20px;
-  color: #374151;
+  color: #111827;
 }
 
-.query-form label {
-  font-size: 13px;
+.query-form .field-label {
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 500;
   margin-bottom: 6px;
-  display: block;
-  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  color: #0a0a0a;
 }
 
 .query-form input,
 .query-form textarea {
   width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #f3f3f5;
   margin-bottom: 16px;
   font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #0a0a0a; 
   outline: none;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.query-form input::placeholder,
+.query-form textarea::placeholder {
+  color: #717182;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  opacity: 1;
 }
 
 .query-form textarea {
@@ -76,12 +106,20 @@
 
 /* BUTTON */
 .submit-btn {
-  background: #b6ff00;
+  background: #c5ff00;
   border: none;
-  padding: 14px;
+  padding: 12px 16px;
   width: 100%;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #000000;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -94,65 +132,92 @@
 /* RIGHT PANEL */
 .query-list {
   width: 60%;
+  max-width: 370px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .query-list h2 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 18px;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #0a0a0a;
+  white-space: nowrap;
+  margin-bottom: 8px;
 }
 
 /* CARDS */
 .query-card {
   background: #ffffff;
-  padding: 18px 20px;
-  border-radius: 16px;
-  margin-bottom: 16px;
+  border-radius: 14px;
+  padding: 16px 20px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .query-card h3 {
-  font-size: 15px;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 600;
   margin: 0;
+  color: #0a0a0a;
+  white-space: nowrap;
 }
 
 .query-card p {
-  font-size: 13px;
-  color: #6b7280;
-  margin-top: 4px;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #6a7282;
+  margin: 4px 0 0;
 }
 
 /* STATUS BADGES */
 .status {
-  padding: 6px 14px;
+  height: 28px;
+  padding: 0 12px;
   border-radius: 999px;
-  font-size: 12px;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: inherit;
 }
 
 .resolved {
-  background: #d1fae5;
-  color: #047857;
+  background: #dcfce7;
+  color: #016630;
 }
 
 .in-progress {
   background: #dbeafe;
-  color: #1d4ed8;
+  color: #193cb8;
 }
 
 /* EMPTY BOX */
 .empty-box {
-  margin-top: 24px;
-  border: 2px dashed #e5e7eb;
-  border-radius: 16px;
-  padding: 36px;
+  margin-top: 16px;
+  border: 2px dashed #d1d5dc;
+  border-radius: 10px;
+  padding: 26px;
   text-align: center;
-  color: #9ca3af;
-  font-size: 14px;
+  color: #99a1af;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.query-text {
+  display: flex;
+  flex-direction: column;
 }
