@@ -63,17 +63,17 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
         if (startDate && endDate) {
               const start = new Date(startDate);
               const end = new Date(endDate);
-              if (end < start) {
-                  window.alert('End date cannot be before start date. Please select a valid date range.');
-                  return;
-              }
-
               const today = new Date();
+              
               if (start < today) {
                   window.alert('Start date cannot be in the past. Please select a valid start date.');
                   return;
               }
-              
+
+              if (end < start) {
+                  window.alert('End date cannot be before start date. Please select a valid date range.');
+                  return;
+              }  
           }
 
         if (!reason || reason.trim() === '') {
