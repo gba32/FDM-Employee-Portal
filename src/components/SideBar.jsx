@@ -74,7 +74,10 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "modifyAccess" ? "active" : ""}
               onClick={() => setActiveTab("modifyAccess")}
             >
-              <img src="src/images/sidebar-icons/User Access.svg" alt="User Access" />
+              <img
+                src="src/images/sidebar-icons/User Access.svg"
+                alt="User Access"
+              />
               <span className="sidebarLabel">User Access</span>
             </button>
           )}
@@ -84,12 +87,15 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "hrResolve" ? "active" : ""}
               onClick={() => setActiveTab("hrResolve")}
             >
-              <img src="src/images/sidebar-icons/HRQuery.svg" alt="HR Queries" />
+              <img
+                src="src/images/sidebar-icons/HRQuery.svg"
+                alt="HR Queries"
+              />
               <span className="sidebarLabel">HR Queries</span>
             </button>
           )}
 
-          {userRole === "HR" && (
+          {(userRole === "HR" || userRole === "IT") && (
             <button
               className={activeTab === "announcement" ? "active" : ""}
               onClick={() => setActiveTab("announcement")}
@@ -107,7 +113,10 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
               className={activeTab === "approveLeave" ? "active" : ""}
               onClick={() => setActiveTab("approveLeave")}
             >
-              <img src="src/images/sidebar-icons/ApproveLeave.svg" alt="Approve Leave" />
+              <img
+                src="src/images/sidebar-icons/ApproveLeave.svg"
+                alt="Approve Leave"
+              />
               <span className="sidebarLabel">Approve Leave</span>
             </button>
           )}
