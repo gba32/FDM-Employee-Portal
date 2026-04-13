@@ -6,13 +6,23 @@
 
 import "../css/SubmitQuery.css";
 import { QueryStatus, QueryType } from "../services/mockPortalData";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   const [subject, setSubject] = useState("");
   const [question, setQuestion] = useState("");
   const [queries, setQueries] = useState(queryRepository || []);
+
+  useEffect(() => {
+    const savedQueries = localStorage.getItem("queries");
+
+    if (savedQueries) {
+      const parsed = JSON.parse(savedQueries);
+      setQueries(parsed);
+      setRepository(parsed);
+    }
+  }, []);
 
   const handleSubmit = () => {
     if (!subject || !question) return;
