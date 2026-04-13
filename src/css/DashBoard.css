@@ -24,6 +24,11 @@
     margin-left: 5.5rem;
     width: calc(100% - 5.5rem);
   }
+
+  body.leave-history-popup-open .mainContent {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 @media (max-width: 700px) {

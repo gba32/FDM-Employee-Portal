@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "../css/submitLeave.css";
 import 'reactjs-popup/dist/index.css';
 import Popup from 'reactjs-popup';
@@ -127,6 +128,19 @@ function YourRecentRequests({ currentEmpID, repository }) {
 }
 
 function RecentRequestHistory({ currentEmpID, repository }) {
+    const [isHistoryPopupOpen, setIsHistoryPopupOpen] = useState(false);
+
+    useEffect(() => {
+        if (isHistoryPopupOpen) {
+            document.body.classList.add('leave-history-popup-open');
+        } else {
+            document.body.classList.remove('leave-history-popup-open');
+        }
+
+        return () => {
+            document.body.classList.remove('leave-history-popup-open');
+        };
+    }, [isHistoryPopupOpen]);
     
     /*
       - Helper functions for converting date formats and formatting the display of recent requests.
@@ -217,7 +231,13 @@ function RecentRequestHistory({ currentEmpID, repository }) {
             <div className='recent-request-container'>
                 {recentRequests}
                 <div className= 'additional-requests-history'>
-                    <Popup trigger={additionalHistoryMsg} modal nested>
+                    <Popup
+                        trigger={additionalHistoryMsg}
+                        modal
+                        nested
+                        onOpen={() => setIsHistoryPopupOpen(true)}
+                        onClose={() => setIsHistoryPopupOpen(false)}
+                    >
                         {close => (
                             <div className='modal'>
                                 <div className='content'>
