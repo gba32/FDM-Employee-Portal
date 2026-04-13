@@ -1,6 +1,6 @@
 import Popup from "reactjs-popup";
 import "../css/ApproveLeave.css";
-//LIST OF TASKS: FORMAT DATES, add a click to view more when processed requests hit to 3
+//LIST OF TASKS: FORMAT DATES (DONE), add a click to view more when processed requests hit to 3
 //use pop up similar to annual leave request (done logic. css not done)
 //CHECK VIA console.log order of processed requests displayed (fixed via .sort() method)
 //stylise notification message
@@ -32,6 +32,33 @@ const ApproveLeave = ({
     )
     .sort((a, b) => a.requestID - b.requestID);
 
+  //format YYYY-MM-DD string to dateTimeFormat object e.g 13 Mar 2026
+  const formatDate = (date) => {
+    //date is a string, formatted as YYYY-MM-DD
+    // 1. deconstruct date string by using .split and store to array
+    const dateArray = date.split("-");
+    //2. convert each string into integer
+    let newDateArray = dateArray.map(Number);
+    //3. take month and subtract by 1 because Date constructor accepts month as  0 index
+    const year = newDateArray[0];
+    console.log(year);
+    const month = newDateArray[1] - 1;
+    console.log(month);
+    const day = newDateArray[2];
+    console.log(day);
+
+    //4. pass to Date constructor => (1995,11,17)
+    const newDate = new Date(year, month, day);
+    console.log(newDate);
+
+    //  5. new Intl.DateTimeFormat("en-GB", {day: "numeric", month: "short", year: "numeric"}).format(date)
+    return new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }).format(newDate);
+  };
+
   // return emp object
   const returnProcessedRequestDetails = (leave) => {
     const foundEmp = empRepo.find((emp) => emp.id === leave.empID);
@@ -42,7 +69,7 @@ const ApproveLeave = ({
           <section className="details">
             <p className="name">{foundEmp.name}</p>
             <p className="dates">
-              {leave.startDate}-{leave.endDate}
+              {formatDate(leave.startDate)} - {formatDate(leave.endDate)}
             </p>
           </section>
           <section className="statusLabel">
@@ -127,7 +154,8 @@ const ApproveLeave = ({
             ...leaveItem,
             leaveStatus: LeaveStatus.REJECTED,
             resolverID: user.id,
-            reason: "Insufficient leave balance",
+            //Change message to alert to use reason of rejected approve leave request
+            reason: `Rejected: ${leaveItem.reason}. Insufficient leave balance`,
           };
         } else {
           return leaveItem;
@@ -137,7 +165,7 @@ const ApproveLeave = ({
 
       //send REJECTED_REQUEST to manager
       triggerNotification(
-        `System: ${LeaveActionType.REJECTED_REQUEST} due to low leave balance.`,
+        `${LeaveActionType.REJECTED_REQUEST} due to low leave balance.`,
       );
       console.log("nofitication trigger?", !!triggerNotification);
     }
@@ -197,7 +225,8 @@ const ApproveLeave = ({
                       <section className="details">
                         <p>{foundEmp.name}</p>
                         <p className="dates">
-                          {leave.startDate}-{leave.endDate}
+                          {formatDate(leave.startDate)} -{" "}
+                          {formatDate(leave.endDate)}
                         </p>
                       </section>
                     </div>
@@ -231,22 +260,30 @@ const ApproveLeave = ({
               {/* check when processed requests is greater than 3 */}
               {processedRequestsCount >= 3 && (
                 <Popup
-                  trigger={<button>Click to view more</button>}
+                  trigger={
+                    <button className="clickMoreBtn">Click to view more</button>
+                  }
                   modal
                   nested
                 >
                   {(close) => (
                     <div className="modal">
                       <div className="content">
-                        <h2>Additional Request History</h2>
                         {/* get remaining processed leave requests */}
-                        <ul>
+                        <ul className="ProcessedContainer">
+                          <h2>Processed Requests History</h2>
+
                           {/* show recently processed leave requests based on resolverID */}
                           {processedRequests.map(returnProcessedRequestDetails)}
                         </ul>
-                      </div>
-                      <div className="closePopUp">
-                        <button onClick={() => close()}>X</button>
+                        <div className="closePopUp">
+                          <button
+                            className="closePopUpBtn"
+                            onClick={() => close()}
+                          >
+                            ✖
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
