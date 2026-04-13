@@ -67,6 +67,12 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
                   window.alert('End date cannot be before start date. Please select a valid date range.');
                   return;
               }
+
+              const today = new Date();
+              if (start < today) {
+                  window.alert('Start date cannot be in the past. Please select a valid start date.');
+                  return;
+              }
           }
         
         console.log('Leave Request Created:', { startDate, endDate, reason });
