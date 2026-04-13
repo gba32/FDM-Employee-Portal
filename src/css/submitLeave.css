@@ -5,7 +5,7 @@
     background-color: #EFECEA;
     font-weight: 500;
     min-height: 100vh;
-    /* padding-left: 10em;  Space for the sidebar, should be increased when the sidebar symbol is clicked */
+    
 }
 
 .layout {
@@ -16,7 +16,6 @@
     grid-template-columns: 45% 55%;
     gap: clamp(20px, 4vw, 50px);
     min-height: 65vh;
-    
 }
 
 /* Style for the header section */
