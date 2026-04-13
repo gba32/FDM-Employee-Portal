@@ -73,7 +73,13 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
                   window.alert('Start date cannot be in the past. Please select a valid start date.');
                   return;
               }
+              
           }
+
+        if (!reason || reason.trim() === '') {
+            window.alert('You must provide a reason for your leave request.');
+            return;
+        }
         
         console.log('Leave Request Created:', { startDate, endDate, reason });
         addLeaveRequest({
