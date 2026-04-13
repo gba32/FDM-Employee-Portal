@@ -196,6 +196,8 @@ function EmployeeCard({ className, employee, permissionManager, onPermissionsCha
  */
 const ModifyAccess = ({ repository, setRepository, user }) => {
   const permissionList = Object.values(PermissionsType);
+  const LIMIT = 100;
+
   let [showMore, setShowMore] = useState(false);
   let [searchValue, setSearchValue] = useState("");
   let employeeRepository = new EmployeeRepository(repository, setRepository);
@@ -226,9 +228,8 @@ const ModifyAccess = ({ repository, setRepository, user }) => {
           onPermissionsChanged={(newPermissions) => { 
             permissionManager.setPermissions(item.id, newPermissions);
           }} />}
-        nameFunction={(item) => item.name} limit={showMore ? 100 : 1}
+        nameFunction={(item) => item.name} limit={LIMIT}
         keyFunction={(item) => item.id} />
-        <button onClick={() => setShowMore(!showMore)}>Show more</button>
     </section>
   );
 };
