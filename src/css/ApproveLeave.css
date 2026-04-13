@@ -144,7 +144,7 @@
   font-weight: 400;
   line-height: 1.25rem;
 }
-.requestBox .pendingRequestBottom {
+.PendingRequestContainer .requestBox .pendingRequestBottom {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -199,6 +199,8 @@ padding: 0.40625rem 4.64375rem 0.59375rem 4.98125rem; */
   font-weight: 500;
 }
 .ProcessedContainer .requestBox {
+  /* made .requestBox global */
+  /* .requestBox { */
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -272,4 +274,74 @@ padding: 0.40625rem 4.64375rem 0.59375rem 4.98125rem; */
   font-style: normal;
   font-weight: 400;
   line-height: 1.25rem; /* 142.857% */
+}
+
+/* Pop up */
+.content {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  /* position: absolute; */
+}
+
+.modal .ProcessedContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  flex: 1;
+  width: 100%;
+}
+.closePopUp {
+  flex: 0 0 auto;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.closePopUp .closePopUpBtn {
+  border-radius: 0.9rem;
+  padding: 0.5rem;
+  padding-inline: 0.8rem;
+  background: #c5ff00;
+  border-style: none;
+  cursor: pointer;
+
+  color: #000;
+  text-align: center;
+  font-family: "Azeret Mono";
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+.closePopUp .closePopUpBtn:hover {
+  background: #1e1e1e;
+  color: white;
+}
+
+.clickMoreBtn {
+  border-radius: 0.9rem;
+  padding: 0.5rem;
+  padding-inline: 0.8rem;
+  background: #c5ff00;
+  border-style: none;
+  cursor: pointer;
+
+  color: #000;
+  text-align: center;
+  font-family: "Azeret Mono";
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+.clickMoreBtn:hover {
+  background: #1e1e1e;
+  color: white;
 }

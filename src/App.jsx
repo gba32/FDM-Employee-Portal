@@ -34,7 +34,7 @@ function App() {
     //auto hide after 3 seconds
     setTimeout(() => {
       setNotification(null);
-    }, 3000);
+    }, 4000);
   };
 
   //authentication logic
@@ -48,7 +48,7 @@ function App() {
   return (
     <div className="appRoot">
       {/* NEW NOTIFICATION SYSTEM */}
-      {notification && <div>{notification}</div>}
+      {notification && <div className="notificationPopUp">{notification}</div>}
       {/*If not logged in, show only login page component */}
       {!currentUser ? (
         <LoginPage onLogin={handleLogin} users={employeeRepository}></LoginPage>
