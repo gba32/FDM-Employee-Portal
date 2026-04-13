@@ -241,7 +241,7 @@ function RecentRequestHistory({ currentEmpID, repository }) {
                         {close => (
                             <div className='modal'>
                                 <div className='content'>
-                                    <h2>Additional Request History</h2>
+                                    <h2>Request History</h2>
                                     {getAllRequests()}
                                 </div>
                                 <div className='closePopup'>
