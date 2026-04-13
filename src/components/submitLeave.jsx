@@ -29,9 +29,14 @@ const SubmitLeave = ({ repository, setRepository, user }) => {
       );
   }
 
-
+/*
+  - This component allows employees to submit new leave requests and view their recent leave request history.
+  - It consists of two main sections: the form for submitting a new leave request and a section displaying the employee's recent leave requests.
+  - The component uses local state to manage the form inputs and the display of recent requests, and it interacts with a repository to store and retrieve leave request data.
+*/
 function NewLeaveRquest({ currentEmpID, repository, setRepository }) { 
 
+    // Function to add a new leave request to the repository
     function addLeaveRequest({ startDate, endDate, reason, empID }) {
         const totalDays = Math.round(
             Math.abs(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24),
@@ -54,6 +59,7 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
         return leaveRequest;
     }
 
+    // Handler for form submission to create a new leave request
     function createLeaveRequest(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -61,6 +67,7 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
         const endDate = formData.get('end-date');
         const reason = formData.get('reason');
 
+        // Basic validation for fields
         if (startDate && endDate) {
               const start = new Date(startDate);
               const end = new Date(endDate);
@@ -115,6 +122,11 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
     );
 }
 
+/*
+  - This component displays the employee's recent leave requests, showing key details such as the date range, reason, and status of each request.
+  - It also includes functionality to view the full history of leave requests in a popup modal if there are more than three recent requests.
+  - The component uses helper functions to format dates and manage the display of recent requests based on the data from the repository.
+*/
 function YourRecentRequests({ currentEmpID, repository }) {
 
     return (
@@ -127,6 +139,11 @@ function YourRecentRequests({ currentEmpID, repository }) {
     );
 }
 
+/*
+  - This component manages the display of recent leave requests for the employee, showing a summary of the most recent requests and providing an option to view the full history in a popup modal.
+  - It includes helper functions to format dates and create components for each recent request, as well as managing the state for the popup display.
+  - The component filters the repository data to show only the requests relevant to the current employee and formats it for display in a user-friendly manner.
+*/
 function RecentRequestHistory({ currentEmpID, repository }) {
     const [isHistoryPopupOpen, setIsHistoryPopupOpen] = useState(false);
 
@@ -144,7 +161,7 @@ function RecentRequestHistory({ currentEmpID, repository }) {
     
     /*
       - Helper functions for converting date formats and formatting the display of recent requests.
-      - In a real application, this would likely involve fetching recent request data from an API and formatting it for display.
+      - Mirrors task of fetching recent request data from an API and formatting it for display.
      */
 
     // Helper function for converting a date to a triplet
@@ -259,6 +276,11 @@ function RecentRequestHistory({ currentEmpID, repository }) {
     );
 }
 
+/*
+  - This component displays the details of a single leave request in the recent requests list, showing the date range, reason, and status of the request.
+  - It formats the display based on the status of the request, using different styles for pending, approved, and rejected requests.
+  - The component also handles cases where certain data may be missing, ensuring that it only renders when all necessary information is available.
+*/
 function RecentRequestItem({startDay, startMonth, startYear, endDay, endMonth, endYear, reason, status }) {
 
     if (!startDay || !startMonth || !endDay || !endMonth || !startYear || !endYear || !reason || !status) {
