@@ -26,29 +26,17 @@ const ResolveHR = ({ employeeRepository, repository, setRepository, user }) => {
   };
 
   // Handles resolving a query by updating its status and adding resolution details
+  // Checks if a resolution note has been entered before allowing resolution
   const handleResolve = (queryID) => {
+    if (!note[queryID]?.trim()) {
+      alert("Please enter a resolution note");
+      return;
+    }
     const updatedQueries = repository.map((query) => {
       if (query.queryID === queryID) {
         return { // updates query details to resolved
           ...query,
           queryStatus: QueryStatus.RESOLVED,
-          resolverID: user.id,
-          dateResolved: new Date().toLocaleDateString(),
-          resolutionNote: note[queryID] || "",
-        };
-      }
-      return query;
-    });
-    setRepository(updatedQueries);
-  };
-
-  // Handles rejecting a query by updating its status and adding resolution details
-  const handleReject = (queryID) => {
-    const updatedQueries = repository.map((query) => {
-      if (query.queryID === queryID) {
-        return { // updates query details to rejected
-          ...query,
-          queryStatus: QueryStatus.REJECTED,
           resolverID: user.id,
           dateResolved: new Date().toLocaleDateString(),
           resolutionNote: note[queryID] || "",
@@ -74,14 +62,6 @@ const ResolveHR = ({ employeeRepository, repository, setRepository, user }) => {
       const suffix = day === 1 || day === 21 || day === 31 ? 'st' : day === 2 || day === 22 ? 'nd' : day === 3 || day === 23 ? 'rd' : 'th';
 
       return `${day}${suffix} ${name} ${year}`;
-  }
-
-  function getStatuscolour(status) {
-    switch(status) {
-        case QueryStatus.RESOLVED: return "status-resolved";
-        case QueryStatus.REJECTED: return "status-rejected";
-        default:                   return "";
-    }
   }
 
   return (
