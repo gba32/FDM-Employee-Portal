@@ -12,7 +12,7 @@ import React, { useState, useEffect } from "react";
 const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   const [subject, setSubject] = useState("");
   const [question, setQuestion] = useState("");
-  const [queries, setQueries] = useState(queryRepository || []);
+  const [queries, setQueries] = useState([]);
 
   useEffect(() => {
     const savedQueries = localStorage.getItem("queries");
