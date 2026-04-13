@@ -64,7 +64,7 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
               const start = new Date(startDate);
               const end = new Date(endDate);
               const today = new Date();
-              
+
               if (start < today) {
                   window.alert('Start date cannot be in the past. Please select a valid start date.');
                   return;
@@ -199,12 +199,15 @@ function RecentRequestHistory({ currentEmpID, repository }) {
 
     }
 
-    let recentRequestsFinder = getRecentRequests()
+    const allRequests = (repository ?? []).filter(
+        request => request.empID === currentEmpID,
+    );
+    let recentRequestsFinder = getRecentRequests();
     let additionalHistoryMsg = null;
         if (recentRequestsFinder === null || recentRequestsFinder.length === 0) {
             recentRequestsFinder = <p className='no-recent-requests'>No recent requests found.</p>;
         }
-        if (recentRequestsFinder.length >= 3) {
+        if (allRequests.length > 3) {
             additionalHistoryMsg = <button><p className='additionalHistoryText'>Click to view more...</p></button>;
         }
     const recentRequests = recentRequestsFinder;
