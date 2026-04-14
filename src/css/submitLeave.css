@@ -283,8 +283,10 @@ header h3 {
 }
 
 .modal .content {
+    display: flex;
     max-height: calc(85vh - 90px);
     overflow-y: auto;
+    flex-direction: column !important;
     padding-right: 8px;
 }
 
