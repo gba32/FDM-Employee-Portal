@@ -116,8 +116,20 @@ body,
   margin: 0;
   padding: 0;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   /* expands if content is long but stays to full screen if content is short */
   min-height: 100vh;
   background: #efecea;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }

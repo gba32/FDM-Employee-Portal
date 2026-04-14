@@ -1,0 +1,74 @@
+.loginContainer {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 0;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10);
+    text-align: center;
+    justify-content: space-between;
+    font-family: "Segoe UI Emoji";
+    width: 480px;
+    height: min-content;
+    aspect-ratio: 1;
+    flex-grow: 0;
+    max-width: 100%;
+    padding: 1em;
+}
+
+.loginContainer h2,
+.loginContainer h3 {
+    font-weight: normal;
+}
+
+.loginContainer h3 {
+    color: #4A5565;
+}
+
+.inputContainer {
+    display: flex;
+    text-align: start;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.inputContainer>input {
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.00);
+    background: #F3F3F5;
+    padding: 4px;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.loginBtn {
+    border-radius: 8px;
+    border-style: none;
+    background: #C5FF00;
+    padding: 12px 0px;
+    justify-self: flex-end;
+}
+
+.loginBtn:hover {
+    background: #92bf00;
+}
+
+.loginBtn:active {
+    background: #617f00;
+}
+
+
+#fdmLogo {
+}
