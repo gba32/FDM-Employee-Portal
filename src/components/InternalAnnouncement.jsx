@@ -4,7 +4,7 @@ import { AnnouncementStatus } from "../services/mockPortalData";
 import PublishedAnnouncement from "./PublishedAnnouncement.jsx";
 import announcementIcon from "../images/announcement-icon.svg";
 
-const InternalAnnouncement = ({ repository, setRepository, user }) => {
+const InternalAnnouncement = ({ repository, setRepository, user, triggerNotification}) => {
 
   // states
   const [title, setTitle] = useState("");
@@ -14,7 +14,7 @@ const InternalAnnouncement = ({ repository, setRepository, user }) => {
   const handlePublish = (e) => {
     e.preventDefault();
     if (!title || !content) {
-      alert("Make sure to fill in title and content");
+      triggerNotification('Make sure to fill in title and content.');
       return;
     }
     const newAnnouncement = {
@@ -32,6 +32,7 @@ const InternalAnnouncement = ({ repository, setRepository, user }) => {
     setRepository([...repository, newAnnouncement]);
     setTitle("");
     setContent("");
+    triggerNotification('Published Announcement.');
   };
 
   // deleting announcement
@@ -43,6 +44,7 @@ const InternalAnnouncement = ({ repository, setRepository, user }) => {
       return announcement;
     });
     setRepository(newRepo);
+    triggerNotification('Deleted announcement.');
   };
 
   if (!user) return <p>Loading user data</p>;

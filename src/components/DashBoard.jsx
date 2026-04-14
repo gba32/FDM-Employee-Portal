@@ -170,6 +170,7 @@ const Dashboard = ({
               repository={AnnouncementRepository}
               setRepository={setAnnouncementRepository}
               user={user}
+              triggerNotification={triggerNotification}
             ></InternalAnnouncement>
           )}
 
