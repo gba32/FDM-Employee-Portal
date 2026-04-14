@@ -125,7 +125,7 @@ export const Repository = {
       queryID: "3", //queryID shared property name because ITQuery and HRQuery are subclasses of parent Query class.
       empID: "3", //renamed from requestee property in Query class to association with Employee object
       queryType: QueryType.HRQUERY, //HRQuery subclass of Query parent class represented as an enumeration property type
-      queryStatus: QueryStatus.RESOLVED, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
+      queryStatus: QueryStatus.PENDING, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
       dateRequested: "2026-04-01", //in Javascript standard: YYYY-MM-DD format
       subject: "Policy Clarification", //new property not added from class diagram
       reason: "Can you clarify the remote work policy for managers?", //new property not added from class diagram
