@@ -295,6 +295,15 @@ p.query-question{
   margin-bottom: 12px;
 }
 
+.query-history-content .query-card-history:has(.status.resolved) {
+  background-color: rgb(110, 237, 118);
+}
+
+.query-history-content .query-card-history:has(.status.in-progress) {
+  background-color: rgb(189, 216, 255);
+}
+
+
 .query-history-close {
   display: flex;
   justify-content: flex-end;
@@ -348,4 +357,109 @@ p.query-question{
 
 .toggle-btn:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 1100px) {
+  .query-page {
+    padding: 16px;
+    gap: 24px;
+  }
+
+  .query-container {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .query-form,
+  .query-list {
+    width: 100%;
+    max-width: none;
+  }
+
+  .query-list {
+    margin-top: 0;
+  }
+
+  .query-card,
+  .empty-box {
+    width: 100%;
+  }
+
+  .query-history-modal {
+    width: min(94vw, 840px);
+  }
+}
+
+@media (max-width: 700px) {
+  .query-page {
+    padding: 12px;
+    gap: 18px;
+  }
+
+  .title {
+    font-size: 24px;
+    line-height: 30px;
+    margin-bottom: 2px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: -12px;
+  }
+
+  .query-form {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .query-list h2 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .query-card {
+    border-radius: 14px;
+    min-height: 76px;
+    padding: 10px 12px;
+  }
+
+  .query-card h3 {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .query-question {
+    margin-top: 6px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .status {
+    min-height: 24px;
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .empty-box {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 1em 0.9em;
+  }
+
+  .query-history-modal {
+    width: 96vw;
+    padding: 12px;
+    max-height: 88vh;
+  }
+
+  .query-history-content {
+    max-height: calc(88vh - 78px);
+    padding-right: 4px;
+  }
+
+  .query-history-close {
+    justify-content: center;
+  }
 }
