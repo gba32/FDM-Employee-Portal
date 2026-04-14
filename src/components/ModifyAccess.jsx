@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../css/ModifyAccess.css";
 import { PermissionsType } from "../services/mockPortalData";
-import {SearchableList, List} from "./Lists";
+import { SearchableList, List } from "./Lists";
 
 class PermissionState {
   /**
@@ -45,7 +45,7 @@ class EmployeeRepository {
    */
   setEmployeePermissions(employeeId, permissionStates) {
     let employee = this.getEmployeeById(employeeId);
-    if(employee !== null) {
+    if (employee !== null) {
       employee.permissions = permissionStates.filter((p) => p.enabled).map((p) => p.name);
       this.setEmployeeData(this.employeeData);
     }
@@ -72,7 +72,7 @@ class PermissionManager {
   getPermissionStates(employeeId) {
     let employee = this.employeeRepository.getEmployeeById(employeeId);
 
-    if(employee === undefined) {
+    if (employee === undefined) {
       return null;
     }
 
@@ -196,13 +196,13 @@ function EmployeeCard({ className, employee, permissionManager, onPermissionsCha
  */
 const ModifyAccess = ({ repository, setRepository, user }) => {
   const permissionList = Object.values(PermissionsType);
-  let [showMore, setShowMore] = useState(false);
+  const LIMIT = 100;
   let [searchValue, setSearchValue] = useState("");
   let employeeRepository = new EmployeeRepository(repository, setRepository);
   let permissionManager = new PermissionManager(permissionList, employeeRepository);
-  
+
   if (!user) {
-    return <p>Loading user data</p> 
+    return <p>Loading user data</p>
   }
 
   return (
@@ -222,13 +222,14 @@ const ModifyAccess = ({ repository, setRepository, user }) => {
           employee={item}
           permissions={permissionList}
           className="employeeCard"
-          permissionManager = {permissionManager}
-          onPermissionsChanged={(newPermissions) => { 
+          permissionManager={permissionManager}
+          onPermissionsChanged={(newPermissions) => {
             permissionManager.setPermissions(item.id, newPermissions);
           }} />}
-        nameFunction={(item) => item.name} limit={showMore ? 100 : 1}
+        placeholderFunction = {()=><p>No employees found.</p>}
+        nameFunction={(item) => item.name} limit={LIMIT}
+
         keyFunction={(item) => item.id} />
-        <button onClick={() => setShowMore(!showMore)}>Show more</button>
     </section>
   );
 };

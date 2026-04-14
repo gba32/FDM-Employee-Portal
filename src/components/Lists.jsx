@@ -28,7 +28,7 @@ function prefixDistance(prefix, string) {
  * 
  * @param {SearchableListProps} props 
  */
-export function SearchableList({ className, searchValue, items, templateFunction, nameFunction, keyFunction = () => undefined, distanceFunction = prefixDistance, threshold = Infinity, limit = items.length }) {
+export function SearchableList({ className, searchValue, items, templateFunction, placeholderFunction = () => undefined, nameFunction, keyFunction = () => undefined, distanceFunction = prefixDistance, threshold = Infinity, limit = items.length }) {
   // Case insensitive search
   let distances = items.map((item) => distanceFunction(searchValue.toLowerCase(), nameFunction(item).toLowerCase()));
   let components = items
@@ -37,7 +37,7 @@ export function SearchableList({ className, searchValue, items, templateFunction
     .sort((a, b) => a.d - b.d)
     .map((item) => item.v)
 
-  return <List className={className} keyFunction={keyFunction} items={components} templateFunction={templateFunction} limit={limit} />;
+  return <List className={className} keyFunction={keyFunction} items={components} templateFunction={templateFunction} placeholderFunction={placeholderFunction} limit={limit} />;
 }
 
 /**
@@ -52,8 +52,8 @@ export function SearchableList({ className, searchValue, items, templateFunction
  * @param {ListProps} props 
  * @returns 
  */
-export function List({ className, items, templateFunction, limit, keyFunction = () => undefined }) {
+export function List({ className, items, templateFunction, limit, placeholderFunction = () => undefined, keyFunction = () => undefined }) {
   return <ul className={className}>
-    {items.map((item) => <li key={keyFunction(item)}>{templateFunction(item)}</li>).slice(0, limit)}
+    { items.length === 0 ? placeholderFunction() : items.map((item) => <li key={keyFunction(item)}>{templateFunction(item)}</li>).slice(0, limit)}
   </ul>
 }
