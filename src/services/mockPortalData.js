@@ -231,7 +231,7 @@ export const Repository = {
       empID: "1", //rather than author type, use the id to get the name and role to show who posted
       datePublished: "2026-03-22",
       announcementStatus: AnnouncementStatus.PUBLISHED, //implied audit log instead of actually removing from database
-      title: "Welcome to the FDP Employee Portal!",
+      title: "Welcome to the FDM Employee Portal!",
       content: "Welcome.",
     },
   ],

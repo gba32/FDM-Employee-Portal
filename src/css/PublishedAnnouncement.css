@@ -1,0 +1,101 @@
+/* Main card style */
+.published-announcement-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* header row */
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-author {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+/* green circle avatar */
+.author-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #c5ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.author-icon {
+    filter: brightness(0);
+    width: 18px;
+    height: 18px;
+}
+
+.author-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.author-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.author-date {
+    font-size: 0.75rem;
+    color: #999;
+}
+
+/* delete button */
+.delete-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+
+.delete-btn:hover {
+    background: #fff0f0;
+}
+
+.delete-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* card body */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.card-title {
+    font-size: 0.975rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.card-content {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.55;
+    margin: 0;
+}

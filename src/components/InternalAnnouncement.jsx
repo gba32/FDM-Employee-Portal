@@ -1,102 +1,116 @@
 import { useState } from "react";
 import "../css/InternalAnnouncement.css";
 import { AnnouncementStatus } from "../services/mockPortalData";
-import PublishedAnnouncement from "./PublishedAnnouncement";
+import PublishedAnnouncement from "./PublishedAnnouncement.jsx";
+import announcementIcon from "../images/announcement-icon.svg";
 
-//PLEASE READ THIS BEFORE IMPLEMENTING: instead of actually deleting the existing announcement, you can create a function that will
-// .. show the status "PUBLISHED" announcements only to employees to eliminate announcement with status DELETED
 const InternalAnnouncement = ({ repository, setRepository, user }) => {
-  
+
   // states
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  
-  // handle submit of announcement
+
+  // publishing announcement
   const handlePublish = (e) => {
     e.preventDefault();
-
     if (!title || !content) {
       alert("Make sure to fill in title and content");
-      console.log("Did not fill in one of the fields");
       return;
-    } 
-
+    }
     const newAnnouncement = {
       announcementID: String(Date.now()),
-      empID: user.id, 
-      datePublished: new Date().toISOString().split("T")[0],
-      announcementStatus: AnnouncementStatus.PUBLISHED, 
+      empID: user.id,
+      datePublished: new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+      announcementStatus: AnnouncementStatus.PUBLISHED,
       title: title,
       content: content,
-    }
-
-    const newRepo = [...repository, newAnnouncement];
-    setRepository(newRepo);
-
-    // clear form inputs
+    };
+    setRepository([...repository, newAnnouncement]);
     setTitle("");
     setContent("");
-  }
+  };
 
+  // deleting announcement
   const handleDelete = (aID) => {
     const newRepo = repository.map((announcement) => {
       if (announcement.announcementID === aID) {
-        const newAnnouncement = {...announcement, announcementStatus : AnnouncementStatus.DELETED};
-        return newAnnouncement; 
+        return { ...announcement, announcementStatus: AnnouncementStatus.DELETED };
       }
       return announcement;
-    })
-
+    });
     setRepository(newRepo);
-  }
+  };
 
+  if (!user) return <p>Loading user data</p>;
 
-  if (!user) {
-    return <p>Loading user data</p>;
-  }
   return (
     <div className="announcement-main">
-      <h2>Internal Announcement</h2>
-      <p>
-        Logged in as <b>{user.name}</b>
+      <h2 className="announcement-page-title">
+        <img src={announcementIcon} alt="" className="announcement-title-icon" />
+        Internal Announcements
+      </h2>
+      <p className="announcement-subtitle">
+        Publish company-wide announcements to <span className="highlight-all">all</span> employees
       </p>
 
       <div className="announcement-container">
+        {/* Left Col*/}
         <div className="ann-left-col">
-          {/* Create Announcement */}
-          <form onSubmit={handlePublish} action="">
-            <input 
-              type="text"
-              value={title}
-              onChange={(e)=>setTitle(e.target.value)} 
-            />
-            <textarea 
-              name="" 
-              id=""
-              value={content}
-              onChange={(e)=> setContent(e.target.value)}
-            >
-
-            </textarea>
-            <button
-              type="submit"
-            >Submit
+          <h3 className="ann-left-title">Create Announcement</h3>
+          <form onSubmit={handlePublish}>
+            <div className="field-group">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="Announcement title..."
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="field-group">
+              <label htmlFor="content">Content</label>
+              <textarea
+                id="content"
+                name="content"
+                placeholder="Write your announcement here..."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </div>
+            <button className="publish-announcement-btn" type="submit">
+              Publish Announcement
             </button>
           </form>
         </div>
 
+        {/* Right Col (published announcement)*/}
         <div className="ann-right-col">
-          {/* published announcements */}
+          <h3 className="ann-right-title">Published Announcements</h3>
           <div className="published-cards">
             {repository
-            .filter((a) => a.announcementStatus === AnnouncementStatus.PUBLISHED)
-            .map((announcement, index) => (
-              <PublishedAnnouncement key={index} announcement={announcement} role={user.role} handleDelete={handleDelete} />
-            ))}
+              .filter((a) => a.announcementStatus === AnnouncementStatus.PUBLISHED)
+              .map((announcement, index) => (
+                <PublishedAnnouncement
+                  key={index}
+                  announcement={announcement}
+                  role={user.role}
+                  handleDelete={handleDelete}
+                />
+              ))}
+            <div className="additional-announcements-placeholder">
+              Additional announcements...
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default InternalAnnouncement;
