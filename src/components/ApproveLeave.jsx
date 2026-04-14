@@ -1,5 +1,6 @@
 import Popup from "reactjs-popup";
 import "../css/ApproveLeave.css";
+import approveIcon from "../images/approveIcon.png";
 //LIST OF TASKS: FORMAT DATES (DONE), add a click to view more when processed requests hit to 3
 //use pop up similar to annual leave request (done logic. css not done)
 //CHECK VIA console.log order of processed requests displayed (fixed via .sort() method)
@@ -19,6 +20,9 @@ const ApproveLeave = ({
   }
 
   console.log("LeaveRepo", leaveRepo);
+
+  //approve leave request icon for heading
+  const approvelogo = <img src={approveIcon} alt="Approve Icon" />;
 
   //calculate the number of pending requests
   const pendingCount = leaveRepo.filter(
@@ -224,7 +228,7 @@ const ApproveLeave = ({
       <div className="subContainer">
         <header className="approveHeader">
           <div className="heading">
-            <h1>Approve Leave Requests</h1>
+            <h1>{approvelogo} Approve Leave Requests</h1>
           </div>
 
           <div className="paragraph">

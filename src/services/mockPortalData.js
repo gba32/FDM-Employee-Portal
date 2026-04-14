@@ -94,6 +94,18 @@ export const Repository = {
       email: "gabriel@fdm.com",
       username: "Gabriel",
       password: "1234",
+      leaveBalance: 2,
+      permissions: [], //use custom validation logic function to check for enum pairs via .includes()
+    },
+
+    //negative test case where employee doesnt exist for approve leave request use case
+    {
+      id: "5",
+      name: "Peter",
+      role: "IT",
+      email: "peter@fdm.com",
+      username: "peter",
+      password: "1234",
       leaveBalance: 20,
       permissions: [], //use custom validation logic function to check for enum pairs via .includes()
     },
@@ -140,8 +152,9 @@ export const Repository = {
       queryType: QueryType.HRQUERY, //HRQuery subclass of Query parent class represented as an enumeration property type
       queryStatus: QueryStatus.RESOLVED, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
       dateRequested: "2026-04-08", //in Javascript standard: YYYY-MM-DD format
-      subject: "Meeting date", //new property not added from class diagram
-      reason: "When is the meeting scheduled?", //new property not added from class diagram
+      subject: "Employment verification", //new property not added from class diagram
+      reason:
+        "I require a formal letter confirming my employment for a rental application.", //new property not added from class diagram
       resolverID: "1", //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
       dateResolved: "2026-04-08", //association with ResolvedQuery class.
       resolutionNote: "Monday", //association with ResolvedQuery class: renamed from notes property
@@ -153,9 +166,8 @@ export const Repository = {
       queryType: QueryType.HRQUERY, //HRQuery subclass of Query parent class represented as an enumeration property type
       queryStatus: QueryStatus.PENDING, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
       dateRequested: "2026-04-01", //in Javascript standard: YYYY-MM-DD format
-      subject: "Training Request", //new property not added from class diagram
-      reason:
-        "I would like to request professional development training for cloud certifications.", //new property not added from class diagram
+      subject: "Payroll", //new property not added from class diagram
+      reason: "I noticed a discrepancy in my pay.", //new property not added from class diagram
       resolverID: "1", //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
       dateResolved: "2026-04-08", //association with ResolvedQuery class.
       resolutionNote: "", //association with ResolvedQuery class: renamed from notes property
@@ -205,8 +217,8 @@ export const Repository = {
       startDate: "2026-04-12",
       endDate: "2026-04-14",
       totalDays: 3,
-      reason: "Personal Matters",
-      leaveStatus: LeaveStatus.APPROVED, //property defined by LeaveStatus enunmeration class
+      reason: "Family Matter",
+      leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
       resolverID: "3",
     },
 
@@ -215,15 +227,38 @@ export const Repository = {
       empID: "4",
       startDate: "2026-04-12",
       endDate: "2026-04-14",
-      totalDays: 21,
-      reason: "Testing",
+      totalDays: 3,
+      reason: "Personal Leave",
+      leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
+      resolverID: null,
+    },
+
+    //Negative test where empID doesnt exist
+    {
+      requestID: "5",
+      empID: "5",
+      startDate: "2026-04-14",
+      endDate: "2026-04-16",
+      totalDays: 3,
+      reason: "School closure",
+      leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
+      resolverID: null,
+    },
+    //Negative test where  requestID doesnt exist
+    {
+      requestID: "6",
+      empID: "4",
+      startDate: "2026-04-14",
+      endDate: "2026-04-16",
+      totalDays: 3,
+      reason: "Sickness",
       leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
       resolverID: null,
     },
   ],
 
   //USE CASE
-  // HR: Publish internal announcements
+  // HR: Publish internal announcements (and now IT too)
   //Class not defined in class diagram to store and immediately made visible to all employees on their home page
   AnnouncementRepository: [
     {
@@ -231,8 +266,9 @@ export const Repository = {
       empID: "1", //rather than author type, use the id to get the name and role to show who posted
       datePublished: "2026-03-22",
       announcementStatus: AnnouncementStatus.PUBLISHED, //implied audit log instead of actually removing from database
-      title: "Welcome to the FDM Employee Portal!",
-      content: "Welcome.",
+      title: "Official Launch of the FDM Employee Portal",
+      content:
+        "We are please to announce the official launch of the FDM Employee Portal. This centralised platform has been designed to streamline your access to HR/ITservices, leave management and company-wide announcements.",
     },
   ],
 };

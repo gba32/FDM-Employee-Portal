@@ -1,3 +1,8 @@
+import announcementIcon from "../images/announcement-icon.svg";
+import approveIcon from "../images/approveIcon.png";
+import bellIcon from "../images/bellIcon.png";
+import memberIcon from "../images/memberIcon.png";
+import projectIcon from "../images/projectIcon.png";
 import React from "react";
 import { useState } from "react";
 import "../css/DashBoard.css";
@@ -28,6 +33,11 @@ const Dashboard = ({
 }) => {
   //tracks which use case interface to show. is the default page to view
   const [activeTab, setActiveTab] = useState("home");
+
+  //announcement icon for user profile
+  // const announcementlogo = (
+  //   <img src={announcementIcon} alt="Announcement Icon" />
+  // );
 
   //calculate the number of pending requests based on user's empId
   const pendingCount = leaveRepository.filter(
@@ -63,21 +73,33 @@ const Dashboard = ({
             <div className="panelsContainer">
               <section className="panelBox">
                 <h3>Pending Requests</h3>
-                <p>{pendingCount}</p>
+                <div className="panelRow">
+                  <p>{pendingCount}</p>
+                  <img src={bellIcon} alt="Bell Icon" />
+                </div>
               </section>
               <section className="panelBox">
                 <h3>Team Members</h3>
                 {/* hardcoded */}
-                <p>10</p>
+                <div className="panelRow">
+                  <p>10</p>
+                  <img src={memberIcon} alt="Member Icon" />
+                </div>
               </section>
               <section className="panelBox">
                 <h3>Upcoming Leave</h3>
-                <p>{leaveCount}</p>
+                <div className="panelRow">
+                  <p>{leaveCount}</p>
+                  <img src={approveIcon} alt="Approve Icon" />
+                </div>
               </section>
               <section className="panelBox">
                 <h3>Active Projects</h3>
                 {/* hardcoded */}
-                <p>12</p>
+                <div className="panelRow">
+                  {" "}
+                  <p>12</p> <img src={projectIcon} alt="Project Icon" />
+                </div>
               </section>
             </div>
             <ul className="feedContainer">
@@ -100,7 +122,7 @@ const Dashboard = ({
                   <li key={news.announcementID} className="announcementCard">
                     <div className="announcementTop">
                       <div className="profilePicture">
-                        {foundEmp.name.charAt(0)}
+                        <img src={announcementIcon} alt="Announcement Icon" />
                       </div>
                       <section className="details">
                         {/* add if statement for it and hr role */}
