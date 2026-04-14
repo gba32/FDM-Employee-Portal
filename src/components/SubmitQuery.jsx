@@ -20,8 +20,14 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
 
     if (savedQueries) {
       const parsed = JSON.parse(savedQueries);
-      setQueries(parsed);
-      setRepository(parsed);
+      const normalizedQueries = parsed.map((query) => ({
+        ...query,
+        status: query?.status ?? QueryStatus.PENDING,
+      }));
+
+      setQueries(normalizedQueries);
+      setRepository(normalizedQueries);
+      localStorage.setItem("queries", JSON.stringify(normalizedQueries));
     }
   }, []);
 
@@ -37,8 +43,8 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
         month: "short",
         year: "numeric",
       }),
-      status: QueryStatus.IN_PROGRESS, 
-      type: QueryType.EMPLOYMENT,      
+      status: QueryStatus.PENDING,
+      type: queryType,
     };
 
     const updatedQueries = [newQuery, ...queries];
