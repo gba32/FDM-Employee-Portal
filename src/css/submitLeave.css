@@ -272,29 +272,30 @@ header h3 {
 }
 
 .modal {
-    background-color: white;
+    background-color: #ffffff;
     border-radius: 12px;
-    padding: 1rem;
+    padding: 16px;
     width: min(90vw, 760px);
     max-height: 85vh;
     box-sizing: border-box;
-    font-family: "Azeret Mono", monospace;
+    font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .modal .content {
     max-height: calc(85vh - 90px);
     overflow-y: auto;
-    padding-right: 0.5rem;
+    padding-right: 8px;
 }
 
 .modal .content h2 {
     margin-top: 0;
-    color: #1a1a1a;
+    margin-bottom: 14px;
+    color: #0a0a0a;
     text-decoration: underline;
 }
 
 .modal .content .recent-request-item{
-    margin-bottom: 1rem;
+    margin-bottom: 12px;
 }
 
 .modal .content .recent-request-item#approved{
@@ -309,21 +310,49 @@ header h3 {
     background-color: rgb(237, 110, 110);
 }
 
-.modal .content .recent-request-item p {
-    color: #784545;
+.modal .content .recent-request-details {
+    position: relative;
+    display: block;
+}
+
+.modal .content .recent-request-details > :first-child {
+    width: 100%;
+    padding-right: 132px;
+    box-sizing: border-box;
+}
+
+.modal .content .recent-request-details .status-approved,
+.modal .content .recent-request-details .status-pending,
+.modal .content .recent-request-details .status-rejected {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-left: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.45em 0.85em;
+    height: auto;
 }
 
 .modal .closePopup {
     display: flex;
     justify-content: flex-end;
-    margin-top: 1rem;
-    border-radius: 8px;
-    padding: 0.5rem;
+    margin-top: 8px;
 }
 
 .modal .closePopup button {
-    background-color: red;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: #111827;
+    color: #ffffff;
     cursor: pointer;
+    font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.modal .closePopup button:hover {
+    opacity: 0.9;
 }
 
 

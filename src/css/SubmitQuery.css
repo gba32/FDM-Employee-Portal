@@ -262,15 +262,23 @@ p.query-question{
   background-color: #ffffff;
   border-radius: 12px;
   padding: 16px;
-  width: min(90vw, 760px);
+  width: min(96vw, 980px);
   max-height: 85vh;
   box-sizing: border-box;
   font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.query-page .popup-content {
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  width: auto !important;
+}
+
 .query-history-content {
   max-height: calc(85vh - 90px);
   overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 8px;
 }
 
@@ -283,6 +291,7 @@ p.query-question{
 
 .query-card-history {
   width: 100%;
+  box-sizing: border-box;
   margin-bottom: 12px;
 }
 

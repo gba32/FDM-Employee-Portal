@@ -185,7 +185,7 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
                   </div>
                   <div className="query-history-close">
                     <button type="button" onClick={() => close()}>
-                      Close
+                       ✕
                     </button>
                   </div>
                 </div>
