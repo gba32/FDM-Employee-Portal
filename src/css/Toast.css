@@ -1,0 +1,22 @@
+.toastContainer {
+    position: fixed;
+    display: flex;
+    flex-direction: column-reverse;
+    bottom: 0;
+    left: 0;
+    gap: 12px;
+    margin: 1% 5%;
+    width: 90%;    
+
+}
+
+.toast {
+    padding: 12px 0px;
+    text-align: center;
+    background-color: #FFF;
+    box-shadow: 0px 0px 4px #000;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000;
+}

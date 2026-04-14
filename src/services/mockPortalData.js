@@ -48,7 +48,6 @@ export const AnnouncementStatus = Object.freeze({
   DELETED: "DELETED",
 });
 
-
 //Repository abstract class
 export const Repository = {
   //USE CASE:
@@ -155,7 +154,8 @@ export const Repository = {
       queryStatus: QueryStatus.PENDING, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
       dateRequested: "2026-04-01", //in Javascript standard: YYYY-MM-DD format
       subject: "Training Request", //new property not added from class diagram
-      reason: "I would like to request professional development training for cloud certifications.", //new property not added from class diagram
+      reason:
+        "I would like to request professional development training for cloud certifications.", //new property not added from class diagram
       resolverID: "1", //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
       dateResolved: "2026-04-08", //association with ResolvedQuery class.
       resolutionNote: "", //association with ResolvedQuery class: renamed from notes property
@@ -231,9 +231,8 @@ export const Repository = {
       empID: "1", //rather than author type, use the id to get the name and role to show who posted
       datePublished: "2026-03-22",
       announcementStatus: AnnouncementStatus.PUBLISHED, //implied audit log instead of actually removing from database
-      title: "Q1 Performance Review",
-      content:
-        "Great work everyone on meeting q1 targets! Let's keep up the momentum.",
+      title: "Welcome to the FDP Employee Portal!",
+      content: "Welcome.",
     },
   ],
 };
