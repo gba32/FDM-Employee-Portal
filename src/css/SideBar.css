@@ -3,9 +3,18 @@
 
 .sideBarContainer {
     background: #C5FF00;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 16rem;
+    height: 100vh;
     flex: 0 0 16rem;
     align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 900;
+    ;
 
     color: #000;
     font-family: "Azeret Mono";
@@ -14,14 +23,21 @@
     font-weight: 400;
     line-height: 20px; /* 142.857% */
     
-    margin-right: 8rem;
-    transition: width 0.25s ease, margin-right 0.25s ease;
+    margin-right: 0;
+    transition: width 0.25s ease;
 }
 
 .sideBarContainer.collapsed {
     width: 4.5rem;
     flex-basis: 4.5rem;
-    margin-right: 64px;
+    margin-right: 0;
+}
+
+.sideBarContainer nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 /* For the 'FDM' header part of the sidebar */
@@ -61,9 +77,9 @@
 }
 
 .sidebarToggle {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
+    position: fixed;
+    top: 0.5rem;
+    left: 2rem;
     border: none;
     background: transparent;
     color: #000;
@@ -80,7 +96,16 @@
     align-items:flex-start;
     gap: 0.5rem;
     flex-shrink: 0;
-    height: 63vh;
+    height: auto;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.navigationContainer::-webkit-scrollbar {
+    display: none;
 }
 
 .sideBarContainer.collapsed .navigationContainer {
@@ -156,7 +181,7 @@
     align-items: flex-start;
     gap: 16px;
     flex-shrink: 0;
-    height: calc(15vh - 1rem);
+    height: auto;
 }
 
 .sideBarContainer.collapsed .logout {
@@ -224,6 +249,10 @@
         visibility: visible;
         pointer-events: auto;
         transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .sidebarToggle{
+        display: none;
     }
 
     .sideBarContainer.collapsed {
