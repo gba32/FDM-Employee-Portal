@@ -4,7 +4,7 @@ import 'reactjs-popup/dist/index.css';
 import Popup from 'reactjs-popup';
 import calendarIcon from '../images/calendar-icon.svg';
 
-const SubmitLeave = ({ repository, setRepository, user }) => {
+const SubmitLeave = ({ repository, setRepository, user, triggerNotification}) => {
   if (!user) {
     return <p>Loading user data</p>;
   }
@@ -22,6 +22,7 @@ const SubmitLeave = ({ repository, setRepository, user }) => {
                         currentEmpID={currentEmpID}
                         repository={repository}
                         setRepository={setRepository}
+                        triggerNotification={triggerNotification}
                       />
                       <YourRecentRequests currentEmpID={currentEmpID} repository={repository} />
                   </div>
@@ -34,7 +35,7 @@ const SubmitLeave = ({ repository, setRepository, user }) => {
   - It consists of two main sections: the form for submitting a new leave request and a section displaying the employee's recent leave requests.
   - The component uses local state to manage the form inputs and the display of recent requests, and it interacts with a repository to store and retrieve leave request data.
 */
-function NewLeaveRquest({ currentEmpID, repository, setRepository }) { 
+function NewLeaveRquest({ currentEmpID, repository, setRepository, triggerNotification }) { 
 
     // Function to add a new leave request to the repository
     function addLeaveRequest({ startDate, endDate, reason, empID }) {
@@ -74,18 +75,18 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
               const today = new Date();
 
               if (start < today) {
-                  window.alert('Start date cannot be in the past. Please select a valid start date.');
+                  triggerNotification('Start date cannot be in the past. Please select a valid start date.');
                   return;
               }
 
               if (end < start) {
-                  window.alert('End date cannot be before start date. Please select a valid date range.');
+                  triggerNotification('End date cannot be before start date. Please select a valid date range.');
                   return;
               }  
           }
 
         if (!reason || reason.trim() === '') {
-            window.alert('You must provide a reason for your leave request.');
+            triggerNotification('You must provide a reason for your leave request.');
             return;
         }
         
@@ -97,7 +98,7 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository }) {
             empID: currentEmpID,
         });
         console.log('Updated Leave Repository:', repository);
-        alert('Request sent for approval!');
+        triggerNotification('Request sent for approval!');
         e.target.reset();
         
     }
