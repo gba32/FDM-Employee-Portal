@@ -131,34 +131,36 @@
 
 /* RIGHT PANEL */
 .query-list {
-  width: 60%;
-  max-width: 370px;
+  width: 100%;
+  max-width: 560px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .query-list h2 {
   font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 24px;
+  line-height: 32px;
   font-weight: 500;
   color: #0a0a0a;
   white-space: nowrap;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 /* CARDS */
 .query-card {
   background: #ffffff;
-  border-radius: 14px;
-  padding: 16px 20px;
+  border-radius: 18px;
+  padding: 16px 18px;
+  min-height: 94px;
+  border: 1px solid #d9dadd;
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.1);
 }
 
 .query-card h3 {
@@ -168,7 +170,6 @@
   font-weight: 600;
   margin: 0;
   color: #0a0a0a;
-  white-space: nowrap;
 }
 
 .query-card p {
@@ -176,14 +177,14 @@
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
-  color: #6a7282;
-  margin: 4px 0 0;
+  color: #667085;
+  margin: 8px 0 0;
 }
 
 /* STATUS BADGES */
 .status {
-  height: 28px;
-  padding: 0 12px;
+  min-height: 28px;
+  padding: 4px 14px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -191,30 +192,35 @@
   font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 14px;
   line-height: 20px;
-  font-weight: 600;
+  font-weight: 500;
   color: inherit;
+  white-space: nowrap;
 }
 
 .resolved {
-  background: #dcfce7;
-  color: #016630;
+  background: #ccebd8;
+  color: #0f6b3c;
 }
 
 .in-progress {
-  background: #dbeafe;
-  color: #193cb8;
+  background: #dce7ff;
+  color: #2a4ebd;
 }
 
 /* EMPTY BOX */
 .empty-box {
-  margin-top: 16px;
-  border: 2px dashed #d1d5dc;
-  border-radius: 10px;
-  padding: 26px;
+  margin-top: 2px;
+  border: 2px dashed #d5dfee;
+  border-radius: 14px;
+  min-height: 100px;
+  padding: 24px;
   text-align: center;
-  color: #99a1af;
+  color: #98a2b3;
   font-size: 16px;
   line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .query-text {
