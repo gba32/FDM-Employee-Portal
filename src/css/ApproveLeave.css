@@ -83,7 +83,7 @@
   font-style: normal;
   font-weight: 500;
 }
-.PendingRequestContainer .noPendingLabel {
+.noPendingLabel {
   color: #99a1af;
 
   font-family: "Azeret Mono";
