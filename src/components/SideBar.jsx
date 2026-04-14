@@ -9,6 +9,7 @@ const SideBar = ({ userRole, activeTab, setActiveTab, onLogout }) => {
       <header>
         <img src="src\images\logoBlack.png" alt="FDM" />
         {!isCollapsed && <p>Employement Portal</p>}
+        {/* Toggle button to collapse/expand the sidebar */}
         <button
           type="button"
           className="sidebarToggle"

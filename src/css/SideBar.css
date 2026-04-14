@@ -1,3 +1,6 @@
+/*Design for overall sidebar*/
+/*Both width and margin-right will be adjusted on collapse */
+
 .sideBarContainer {
     background: #C5FF00;
     width: 16rem;
@@ -21,6 +24,7 @@
     margin-right: 64px;
 }
 
+/* For the 'FDM' header part of the sidebar */
 .sideBarContainer header {
     position: relative;
     display: flex;
@@ -100,6 +104,7 @@
     cursor: pointer;
 }
 
+/* Ensure icons and labels are properly spaced in expanded state */
 .navigationContainer button .sidebarLabel,
 .logout button .logoutLabel {
     display: inline;
@@ -141,6 +146,7 @@
     filter: invert(1);
 }
 
+/* Design for logout section */
 .logout {
     background: black;
     border: none;

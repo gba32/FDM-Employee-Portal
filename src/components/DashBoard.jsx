@@ -132,6 +132,7 @@ const Dashboard = ({
             repository={leaveRepository}
             setRepository={setLeaveRepository}
             user={user}
+            triggerNotification={triggerNotification}
           ></SubmitLeave>
         )}
 
