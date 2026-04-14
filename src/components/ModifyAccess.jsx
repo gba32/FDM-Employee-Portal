@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "../css/ModifyAccess.css";
+import "../css/Toast.css";
 import { PermissionsType } from "../services/mockPortalData";
 import { SearchableList, List } from "./Lists";
+import { showText, ToastContainer, ToastContext } from "./Toast";
 
 class PermissionState {
   /**
@@ -163,6 +165,8 @@ function EmployeePFP({ className, employee }) {
  * @param {EmployeeCardProps} props
  */
 function EmployeeCard({ className, employee, permissionManager, onPermissionsChanged = (newPermissions) => { } }) {
+  const context = useContext(ToastContext);
+  const DELAY = 1000;
   let [permissionState, setPermissionState] = useState(permissionManager.getPermissionStates(employee.id));
   const updatePermissionState = (permission, newValue) => {
     // Copy the current permissions and edit only the affected one.
@@ -180,7 +184,10 @@ function EmployeeCard({ className, employee, permissionManager, onPermissionsCha
     </header>
     <PermissionBar permissions={permissionState} onPermissionChanged={updatePermissionState} />
     <div className="saveBar">
-      <button onClick={() => { onPermissionsChanged(permissionState) }}>Save changes</button>
+      <button onClick={() => { 
+        showText("Saved!", DELAY, context);
+        onPermissionsChanged(permissionState)
+       }}>Save changes</button>
     </div>
   </article>
 }
@@ -206,31 +213,33 @@ const ModifyAccess = ({ repository, setRepository, user }) => {
   }
 
   return (
-    <section className="ModifyAccessContainer">
-      <h2>User Access Permissions</h2>
-      <h5>Manage user access and permissions across systems</h5>
-      <SearchBar
-        className="searchBar"
-        hint="Search users..."
-        onValueChanged={(newValue) => { setSearchValue(newValue) }} />
+    <ToastContainer limit={5} containerClass="toastContainer" toastClass="toast">
+      <section className="ModifyAccessContainer">
+        <h2>User Access Permissions</h2>
+        <h5>Manage user access and permissions across systems</h5>
+        <SearchBar
+          className="searchBar"
+          hint="Search users..."
+          onValueChanged={(newValue) => { setSearchValue(newValue) }} />
 
-      <SearchableList
-        className="cardContainer"
-        searchValue={searchValue}
-        items={repository}
-        templateFunction={(item) => <EmployeeCard
-          employee={item}
-          permissions={permissionList}
-          className="employeeCard"
-          permissionManager={permissionManager}
-          onPermissionsChanged={(newPermissions) => {
-            permissionManager.setPermissions(item.id, newPermissions);
-          }} />}
-        placeholderFunction = {()=><p>No employees found.</p>}
-        nameFunction={(item) => item.name} limit={LIMIT}
+        <SearchableList
+          className="cardContainer"
+          searchValue={searchValue}
+          items={repository}
+          templateFunction={(item) => <EmployeeCard
+            employee={item}
+            permissions={permissionList}
+            className="employeeCard"
+            permissionManager={permissionManager}
+            onPermissionsChanged={(newPermissions) => {
+              permissionManager.setPermissions(item.id, newPermissions);
+            }} />}
+          placeholderFunction={() => <p>No employees found.</p>}
+          nameFunction={(item) => item.name} limit={LIMIT}
 
-        keyFunction={(item) => item.id} />
-    </section>
+          keyFunction={(item) => item.id} />
+      </section>
+    </ToastContainer>
   );
 };
 
