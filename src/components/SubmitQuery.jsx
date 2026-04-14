@@ -13,6 +13,7 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   const [subject, setSubject] = useState("");
   const [question, setQuestion] = useState("");
   const [queries, setQueries] = useState([]);
+  const [queryType, setQueryType] = useState(QueryType.HRQUERY);
 
   useEffect(() => {
     const savedQueries = localStorage.getItem("queries");
@@ -90,6 +91,22 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
         {/* LEFT: FORM */}
         <div className="query-form">
           <h2>Submit New Query</h2>
+          
+          <div className="toggle-container">
+            <button
+            className={`toggle-btn ${
+              queryType === QueryType.HRQUERY ? "active" : ""
+            }`}
+            onClick={() => setQueryType(QueryType.HRQUERY)}
+            >HR Query</button>
+
+            <button
+              className={`toggle-btn ${
+                queryType === QueryType.ITQUERY ? "active" : ""
+            }`}
+            onClick={() => setQueryType(QueryType.ITQUERY)}
+          >IT Query</button>
+        </div>
 
           <label className="field-label">Subject</label>
           <input
