@@ -62,7 +62,7 @@ const SubmitQuery = ({ repository, setRepository, user }) => {
       subject: subject,
       reason: question,
       resolverID: "",
-      dateResolved: "",
+      dateResolved: null,
       resolutionNote: ""
     }
 

@@ -34,11 +34,12 @@ const ResolveHR = ({ employeeRepository, repository, setRepository, user, trigge
     }
     const updatedQueries = repository.map((query) => {
       if (query.queryID === queryID) {
+        let dateResolved = new Date();
         return { // updates query details to resolved
           ...query,
           queryStatus: QueryStatus.RESOLVED,
           resolverID: user.id,
-          dateResolved: new Date().toLocaleDateString(),
+          dateResolved: dateResolved,
           resolutionNote: note[queryID] || "",
         };
       }

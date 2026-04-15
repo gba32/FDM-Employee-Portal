@@ -37,7 +37,7 @@ const ResolveIT = ({ repository, setRepository, user,  employeeRepository }) => 
           ...query,
           queryStatus: QueryStatus.RESOLVED,
           resolverID: user.id,
-          dateResolved: new Date().toLocaleDateString(),
+          dateResolved: new Date(),
           resolutionNote: note[queryID] || "",
         };
       }
