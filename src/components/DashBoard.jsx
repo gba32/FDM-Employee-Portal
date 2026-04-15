@@ -164,6 +164,7 @@ const Dashboard = ({
             repository={queryRepository}
             setRepository={setQueryRepository}
             user={user}
+            employeeRepository={employeeRepository}
           ></ResolveIT>
         )}
 
