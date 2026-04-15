@@ -24,26 +24,31 @@ const LoginPage = ({ onLogin, users }) => {
   return (
     <div className="loginContainer">
       <form onSubmit={handleLoginSubmit} className="loginForm">
-        <h2>FDM Employee Portal</h2>
-
-        <div className="inputUsernameContainer">
-          <label>Username</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          ></input>
+        <div className="infoContainer">
+          <img src="/src/images/logo.png" id="fdmLogo" />
+          <h2>Employee Portal</h2>
+          <h3>Sign in to continue</h3>
         </div>
+        <div className="detailsContainer">
+          <div className="inputContainer">
+            <label>Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            ></input>
+          </div>
 
-        <div className="inputPasswordContainer">
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          ></input>
+          <div className="inputContainer">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            ></input>
+          </div>
         </div>
 
         <button className="loginBtn" type="submit">

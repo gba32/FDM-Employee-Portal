@@ -7,56 +7,78 @@
 import "../css/SubmitQuery.css";
 import { QueryStatus, QueryType } from "../services/mockPortalData";
 import React, { useState, useEffect } from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
+/*function formatDate(date) {
+  return String(date.getDay()).padStart(2, "0") 
+    + "/" + String(date.getMonth()).padStart(2, '0') 
+    + "/" + date.getFullYear();
+}*/
 
-const SubmitQuery = ({ queryRepository, setRepository, user }) => {
+function getNextQueryID(repository) {
+  let maxID = 0;
+  repository.forEach(query => {
+    let id = parseInt(query.queryID);
+    if(id > maxID) {
+      maxID = id;
+    }
+  });
+
+  return (maxID + 1).toString();
+}
+
+const SubmitQuery = ({ repository, setRepository, user }) => {
   const [subject, setSubject] = useState("");
   const [question, setQuestion] = useState("");
-  const [queries, setQueries] = useState([]);
+  // const [queries, setQueries] = [useState([])];
   const [queryType, setQueryType] = useState(QueryType.HRQUERY);
 
-  useEffect(() => {
-    const savedQueries = localStorage.getItem("queries");
+  // useEffect(() => {
+  //   const savedQueries = localStorage.getItem("queries");
 
-    if (savedQueries) {
-      const parsed = JSON.parse(savedQueries);
-      const normalizedQueries = parsed.map((query) => ({
-        ...query,
-        status: query?.status ?? QueryStatus.PENDING,
-      }));
+  //   if (savedQueries) {
+  //     const parsed = JSON.parse(savedQueries);
+  //     const normalizedQueries = parsed.map((query) => ({
+  //       ...query,
+  //       status: query?.status ?? QueryStatus.PENDING,
+  //     }));
 
-      setQueries(normalizedQueries);
-      setRepository(normalizedQueries);
-      localStorage.setItem("queries", JSON.stringify(normalizedQueries));
-    }
-  }, []);
+  //     setQueries(normalizedQueries);
+  //     setRepository(normalizedQueries);
+  //     localStorage.setItem("queries", JSON.stringify(normalizedQueries));
+  //   }
+  // }, []);
 
   const handleSubmit = () => {
     if (!subject || !question) return;
 
     const newQuery = {
-      id: Date.now(),
-      subject,
-      question,
-      date: new Date().toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      }),
-      status: QueryStatus.PENDING,
-      type: queryType,
-    };
+      queryID: getNextQueryID(repository),
+      empID: user.id,
+      queryType: queryType,
+      queryStatus: QueryStatus.PENDING,
+      dateRequested: new Date(),
+      subject: subject,
+      reason: question,
+      resolverID: "",
+      dateResolved: "",
+      resolutionNote: ""
+    }
 
-    const updatedQueries = [newQuery, ...queries];
+    const updatedQueries = [ newQuery, ...repository,];
+    console.log("REPO", repository);
+    console.log("NEW QUERY", newQuery);
+    console.log("NEW REPO", updatedQueries);
 
     // update local state
-    setQueries(updatedQueries);
+    // setQueries(updatedQueries);
 
     // update shared/global repository
     setRepository(updatedQueries);
 
     // persist to browser
-    localStorage.setItem("queries", JSON.stringify(updatedQueries));
+    // localStorage.setItem("queries", JSON.stringify(updatedQueries));
 
     setSubject("");
     setQuestion("");
@@ -65,6 +87,32 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
   if (!user) {
     return <p>Loading user data</p>;
   }
+
+  const userQueries = repository.filter((q) => q.empID === user.id);
+  const recentQueries = userQueries.slice(0, 3);
+  const hasAdditionalHistory = userQueries.length > 3;
+
+  const renderQueryCard = (query, isHistoryView = false) => (
+    <div
+      key={`${isHistoryView ? "history" : "recent"}-${query.queryID}`}
+      className={`query-card ${isHistoryView ? "query-card-history" : ""}`}
+    >
+      <div className="query-text">
+        <h3>{query.subject}</h3>
+        <p className="query-question">{query.reason || "No query details provided."}</p>
+        <p className="query-date">{query.date}</p>
+      </div>
+
+      <span
+        className={`status ${
+          query.queryStatus === QueryStatus.RESOLVED ? "resolved" : "in-progress"
+        }`}
+      >
+        {query.queryStatus}
+      </span>
+    </div>
+  );
+
   return (
     <div className="query-page">
       <h1 className="title">
@@ -138,27 +186,33 @@ const SubmitQuery = ({ queryRepository, setRepository, user }) => {
         <div className="query-list">
           <h2>Your Previous Queries</h2>
 
-          {queries.map((q) => (
-            <div key={q.id} className="query-card">
-              <div className="query-text">
-                <h3>{q.subject}</h3>
-                <p>{q.date}</p>
-              </div>
+          {recentQueries.map((query) => renderQueryCard(query))}
 
-              <span
-                className={`status ${
-                  q.status === QueryStatus.RESOLVED ? "resolved" : "in-progress"
-                }`}
-              >
-                {q.status}
-              </span>
-            </div>
-          ))}
-
-          {/* EMPTY BOX */}
-          <div className="empty-box">
-            Additional query history...
-          </div>
+          {hasAdditionalHistory && (
+            <Popup
+              trigger={
+                <button type="button" className="empty-box">
+                  Click to view more...
+                </button>
+              }
+              modal
+              nested
+            >
+              {(close) => (
+                <div className="query-history-modal">
+                  <div className="query-history-content">
+                    <h2>Query History</h2>
+                    {userQueries.map((query) => renderQueryCard(query, true))}
+                  </div>
+                  <div className="query-history-close">
+                    <button type="button" onClick={() => close()}>
+                       ✕
+                    </button>
+                  </div>
+                </div>
+              )}
+            </Popup>
+          )}
         </div>
 
       </div>

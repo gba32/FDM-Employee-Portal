@@ -1,3 +1,49 @@
+.notificationPopUp {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  min-width: 300px;
+
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: 0px 0px 5px black;
+
+  color: black;
+  font-family: "Azeret Mono";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  animation: slideIn 4s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  15%,
+  85% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+}
+
 /* .counter {
   font-size: 16px;
   padding: 5px 10px;

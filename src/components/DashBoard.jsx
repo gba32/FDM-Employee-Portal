@@ -1,6 +1,11 @@
+import announcementIcon from "../images/announcement-icon.svg";
+import approveIcon from "../images/approveIcon.png";
+import bellIcon from "../images/bellIcon.png";
+import memberIcon from "../images/memberIcon.png";
+import projectIcon from "../images/projectIcon.png";
 import React from "react";
 import { useState } from "react";
-import "../css/Dashboard.css";
+import "../css/DashBoard.css";
 
 import SideBar from "./SideBar";
 import SubmitQuery from "./SubmitQuery";
@@ -10,6 +15,9 @@ import SubmitLeave from "./submitLeave";
 import ApproveLeave from "./ApproveLeave";
 import ModifyAccess from "./ModifyAccess";
 import InternalAnnouncement from "./InternalAnnouncement";
+
+import { LeaveActionType, LeaveStatus } from "../services/mockPortalData";
+import { QueryStatus, QueryType } from "../services/mockPortalData";
 
 const Dashboard = ({
   user,
@@ -24,14 +32,37 @@ const Dashboard = ({
   onLogout,
   triggerNotification,
 }) => {
-  //tracks which use case interface to show. home is the default page to view
+  //tracks which use case interface to show. is the default page to view
   const [activeTab, setActiveTab] = useState("home");
 
+  //announcement icon for user profile
+  // const announcementlogo = (
+  //   <img src={announcementIcon} alt="Announcement Icon" />
+  // );
+
+  //calculate the number of pending leave requests based on user's empId
+  const pendingCount = leaveRepository.filter(
+    (leave) =>
+      leave.leaveStatus === LeaveStatus.PENDING && leave.empID === user.id,
+  ).length;
+
+  //calculate the number of pending queries based on user's empId
+  const pendingQueryCount = queryRepository.filter(
+    (query) =>
+      query.queryStatus === QueryStatus.PENDING && query.empID === user.id,
+  ).length;
+
+  //calculate the number of approved leave requests based on user's empId
+  const leaveCount = leaveRepository.filter(
+    (leave) =>
+      leave.leaveStatus === LeaveStatus.APPROVED && leave.empID === user.id,
+  ).length;
   return (
-    <div>
+    <div className="dashboardContainer">
       {/* sidebar always shown on use case interface and home page*/}
       <SideBar
         userRole={user.role}
+        activeTab={activeTab}
         setActiveTab={setActiveTab}
         onLogout={onLogout}
       ></SideBar>
@@ -39,18 +70,81 @@ const Dashboard = ({
       <div className="mainContent">
         {activeTab === "home" && (
           <div className="homeContainer">
-            <h2>Welcome to the FDM Portal, {user.name}</h2>
-            <p> Role: {user.role}</p>
-            <h3>Activity Feed</h3>
-            {AnnouncementRepository.filter(
-              (a) => a.announcementStatus === "PUBLISHED",
-            ).map((news) => (
-              <div key={news.announcementID} className="announcementCard">
-                <h4>{news.title}</h4>
-                <p>{news.content}</p>
-                <small>Posted on: {news.datePublished}</small>
-              </div>
-            ))}
+            <div className="headerContainer">
+              <h2 className="welcomeLabel">
+                Welcome back, <span className="nameLabel">{user.name}</span>
+              </h2>
+              <p>Here's whats happening at FDM today</p>
+              {/* <p> Role: {user.role}</p> */}
+            </div>
+            <div className="panelsContainer">
+              <section className="panelBox">
+                <h3>Pending Queries</h3>
+                <div className="panelRow">
+                  <p>{pendingQueryCount}</p>
+                  <img src={bellIcon} alt="Bell Icon" />
+                </div>
+              </section>
+              <section className="panelBox">
+                <h3>Team Members</h3>
+                {/* hardcoded */}
+                <div className="panelRow">
+                  <p>10</p>
+                  <img src={memberIcon} alt="Member Icon" />
+                </div>
+              </section>
+              <section className="panelBox">
+                <h3>Upcoming Leave</h3>
+                <div className="panelRow">
+                  <p>{leaveCount}</p>
+                  <img src={approveIcon} alt="Approve Icon" />
+                </div>
+              </section>
+              <section className="panelBox">
+                <h3>Active Projects</h3>
+                {/* hardcoded */}
+                <div className="panelRow">
+                  {" "}
+                  <p>12</p> <img src={projectIcon} alt="Project Icon" />
+                </div>
+              </section>
+            </div>
+            <ul className="feedContainer">
+              <h3>Activity Feed</h3>
+              {AnnouncementRepository.filter(
+                (a) => a.announcementStatus === "PUBLISHED",
+              ).map((news) => {
+                const foundEmp = employeeRepository.find(
+                  (emp) => emp.id === news.empID,
+                );
+
+                // optional chaining to get department label based on role
+                let deptLabel = "General Announcement"; // in cause label is undefined but shouldnt be
+                if (foundEmp?.role === "HR") {
+                  deptLabel = "HR Team";
+                } else if (foundEmp?.role === "IT") {
+                  deptLabel = "IT Department";
+                }
+                return (
+                  <li key={news.announcementID} className="announcementCard">
+                    <div className="announcementTop">
+                      <div className="profilePicture">
+                        <img src={announcementIcon} alt="Announcement Icon" />
+                      </div>
+                      <section className="details">
+                        {/* add if statement for it and hr role */}
+                        <p>{deptLabel}</p>
+                        <p className="dates"> {news.datePublished}</p>
+                      </section>
+                    </div>
+                    <div className="announcementBottom">
+                      <h4>{news.title}</h4>
+                      <p>{news.content}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         )}
 
@@ -67,6 +161,7 @@ const Dashboard = ({
             repository={leaveRepository}
             setRepository={setLeaveRepository}
             user={user}
+            triggerNotification={triggerNotification}
           ></SubmitLeave>
         )}
 
@@ -76,6 +171,7 @@ const Dashboard = ({
             repository={queryRepository}
             setRepository={setQueryRepository}
             user={user}
+            employeeRepository={employeeRepository}
           ></ResolveIT>
         )}
 
@@ -91,19 +187,23 @@ const Dashboard = ({
 
         {activeTab === "hrResolve" && user.role === "HR" && (
           <ResolveHR
+            employeeRepository={employeeRepository}
             repository={queryRepository}
             setRepository={setQueryRepository}
             user={user}
+            triggerNotification={triggerNotification}
           ></ResolveHR>
         )}
 
-        {activeTab === "announcement" && user.role === "HR" && (
-          <InternalAnnouncement
-            repository={AnnouncementRepository}
-            setRepository={setAnnouncementRepository}
-            user={user}
-          ></InternalAnnouncement>
-        )}
+        {activeTab === "announcement" &&
+          (user.role === "HR" || user.role === "IT") && (
+            <InternalAnnouncement
+              repository={AnnouncementRepository}
+              setRepository={setAnnouncementRepository}
+              user={user}
+              triggerNotification={triggerNotification}
+            ></InternalAnnouncement>
+          )}
 
         {/*SECURITY REQUIREMENTS: if user role is Manager before approving  */}
         {activeTab === "approveLeave" && user.role === "Manager" && (

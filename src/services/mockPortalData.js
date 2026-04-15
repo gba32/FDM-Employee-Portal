@@ -48,54 +48,6 @@ export const AnnouncementStatus = Object.freeze({
   DELETED: "DELETED",
 });
 
-const LEAVE_STORAGE_KEY = "fdm-portal-leave-requests";
-
-function getSavedLeaveRequests() {
-  try {
-    const rawData = globalThis?.localStorage?.getItem(LEAVE_STORAGE_KEY);
-    if (!rawData) {
-      return null;
-    }
-
-    const parsedData = JSON.parse(rawData);
-    if (!Array.isArray(parsedData)) {
-      return null;
-    }
-
-    return parsedData;
-  } catch {
-    return null;
-  }
-}
-
-function saveLeaveRequests(leaveRequests) {
-  try {
-    globalThis?.localStorage?.setItem(
-      LEAVE_STORAGE_KEY,
-      JSON.stringify(leaveRequests),
-    );
-  } catch {
-    // Ignore storage failures to keep mock data usable in restricted environments.
-  }
-}
-
-function clearSavedLeaveRequests() {
-  try {
-    globalThis?.localStorage?.removeItem(LEAVE_STORAGE_KEY);
-  } catch {
-    // Ignore storage failures to keep mock data usable in restricted environments.
-  }
-}
-
-function getNextLeaveRequestId() {
-  const highestRequestId = Repository.LeaveRepository.reduce((maxId, request) => {
-    const parsedId = Number(request.requestID);
-    return Number.isFinite(parsedId) && parsedId > maxId ? parsedId : maxId;
-  }, 0);
-
-  return (highestRequestId + 1).toString();
-}
-
 //Repository abstract class
 export const Repository = {
   //USE CASE:
@@ -142,6 +94,18 @@ export const Repository = {
       email: "gabriel@fdm.com",
       username: "Gabriel",
       password: "1234",
+      leaveBalance: 2,
+      permissions: [], //use custom validation logic function to check for enum pairs via .includes()
+    },
+
+    //negative test case where employee doesnt exist for approve leave request use case
+    {
+      id: "5",
+      name: "Peter",
+      role: "IT",
+      email: "peter@fdm.com",
+      username: "peter",
+      password: "1234",
       leaveBalance: 20,
       permissions: [], //use custom validation logic function to check for enum pairs via .includes()
     },
@@ -164,8 +128,48 @@ export const Repository = {
       dateRequested: "2026-03-25", //in Javascript standard: YYYY-MM-DD format
       subject: "Benefits Enrollment Question", //new property not added from class diagram
       reason: "When does the open enrollment period start for health benefits?", //new property not added from class diagram
-      resolverID: null, //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
-      dateResolved: null, //association with ResolvedQuery class.
+      resolverID: "1", //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
+      dateResolved: "2026-04-08", //association with ResolvedQuery class.
+      resolutionNote: "", //association with ResolvedQuery class: renamed from notes property
+    },
+    {
+      //HR Query object
+      queryID: "3", //queryID shared property name because ITQuery and HRQuery are subclasses of parent Query class.
+      empID: "3", //renamed from requestee property in Query class to association with Employee object
+      queryType: QueryType.HRQUERY, //HRQuery subclass of Query parent class represented as an enumeration property type
+      queryStatus: QueryStatus.PENDING, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
+      dateRequested: "2026-04-01", //in Javascript standard: YYYY-MM-DD format
+      subject: "Policy Clarification", //new property not added from class diagram
+      reason: "Can you clarify the remote work policy for managers?", //new property not added from class diagram
+      resolverID: "1", //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
+      dateResolved: "2026-04-08", //association with ResolvedQuery class.
+      resolutionNote: "", //association with ResolvedQuery class: renamed from notes property
+    },
+    {
+      //HR Query object
+      queryID: "4", //queryID shared property name because ITQuery and HRQuery are subclasses of parent Query class.
+      empID: "4", //renamed from requestee property in Query class to association with Employee object
+      queryType: QueryType.HRQUERY, //HRQuery subclass of Query parent class represented as an enumeration property type
+      queryStatus: QueryStatus.RESOLVED, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
+      dateRequested: "2026-04-08", //in Javascript standard: YYYY-MM-DD format
+      subject: "Employment verification", //new property not added from class diagram
+      reason:
+        "I require a formal letter confirming my employment for a rental application.", //new property not added from class diagram
+      resolverID: "1", //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
+      dateResolved: "2026-04-08", //association with ResolvedQuery class.
+      resolutionNote: "Monday", //association with ResolvedQuery class: renamed from notes property
+    },
+    {
+      //HR Query object
+      queryID: "5", //queryID shared property name because ITQuery and HRQuery are subclasses of parent Query class.
+      empID: "4", //renamed from requestee property in Query class to association with Employee object
+      queryType: QueryType.HRQUERY, //HRQuery subclass of Query parent class represented as an enumeration property type
+      queryStatus: QueryStatus.PENDING, //Enumeration class for queryStatus renamed rather than 'resolved' boolean value type
+      dateRequested: "2026-04-01", //in Javascript standard: YYYY-MM-DD format
+      subject: "Payroll", //new property not added from class diagram
+      reason: "I noticed a discrepancy in my pay.", //new property not added from class diagram
+      resolverID: "1", //association with ResolvedQuery class. Stores the empID of HR staff from Employee object
+      dateResolved: "2026-04-08", //association with ResolvedQuery class.
       resolutionNote: "", //association with ResolvedQuery class: renamed from notes property
     },
     //IT Query object
@@ -180,6 +184,17 @@ export const Repository = {
       dateResolved: null,
       resolutionNote: "",
     },
+    {
+      queryID: "6",
+      empID: "3",
+      queryType: QueryType.ITQUERY,
+      queryStatus: QueryStatus.RESOLVED,
+      dateRequested: "2026-04-01",
+      reason: "Unable to submit Leave request",
+      resolverID: "4",
+      dateResolved: "2026-04-08",
+      resolutionNote: "Solved",
+    }
   ],
   //USE CASES:
   //Employee Submit Annual Leave Request
@@ -213,8 +228,8 @@ export const Repository = {
       startDate: "2026-04-12",
       endDate: "2026-04-14",
       totalDays: 3,
-      reason: "Personal Matters",
-      leaveStatus: LeaveStatus.APPROVED, //property defined by LeaveStatus enunmeration class
+      reason: "Family Matter",
+      leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
       resolverID: "3",
     },
 
@@ -223,15 +238,38 @@ export const Repository = {
       empID: "4",
       startDate: "2026-04-12",
       endDate: "2026-04-14",
-      totalDays: 21,
-      reason: "Testing",
+      totalDays: 3,
+      reason: "Personal Leave",
+      leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
+      resolverID: null,
+    },
+
+    //Negative test where empID doesnt exist
+    {
+      requestID: "5",
+      empID: "5",
+      startDate: "2026-04-14",
+      endDate: "2026-04-16",
+      totalDays: 3,
+      reason: "School closure",
+      leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
+      resolverID: null,
+    },
+    //Negative test where  requestID doesnt exist
+    {
+      requestID: "6",
+      empID: "4",
+      startDate: "2026-04-14",
+      endDate: "2026-04-16",
+      totalDays: 3,
+      reason: "Sickness",
       leaveStatus: LeaveStatus.PENDING, //property defined by LeaveStatus enunmeration class
       resolverID: null,
     },
   ],
 
   //USE CASE
-  // HR: Publish internal announcements
+  // HR: Publish internal announcements (and now IT too)
   //Class not defined in class diagram to store and immediately made visible to all employees on their home page
   AnnouncementRepository: [
     {
@@ -239,56 +277,9 @@ export const Repository = {
       empID: "1", //rather than author type, use the id to get the name and role to show who posted
       datePublished: "2026-03-22",
       announcementStatus: AnnouncementStatus.PUBLISHED, //implied audit log instead of actually removing from database
-      title: "Q1 Performance Review",
+      title: "Official Launch of the FDM Employee Portal",
       content:
-        "Great work everyone on meeting q1 targets! Let's keep up the momentum.",
+        "We are please to announce the official launch of the FDM Employee Portal. This centralised platform has been designed to streamline your access to HR/ITservices, leave management and company-wide announcements.",
     },
   ],
 };
-
-const initialLeaveRepository = Repository.LeaveRepository.map(request => ({
-  ...request,
-}));
-
-const savedLeaveRequests = getSavedLeaveRequests();
-if (savedLeaveRequests) {
-  Repository.LeaveRepository = savedLeaveRequests;
-}
-
-export function addLeaveRequest({ startDate, endDate, reason, empID }) {
-  const totalDays =
-    Math.round(
-      Math.abs(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24),
-    ) + 1;
-
-  const newRequest = {
-    requestID: getNextLeaveRequestId(),
-    empID,
-    startDate,
-    endDate,
-    totalDays,
-    reason,
-    leaveStatus: LeaveStatus.PENDING,
-    resolverID: null,
-  };
-
-  Repository.LeaveRepository.push(newRequest);
-  saveLeaveRequests(Repository.LeaveRepository);
-  return newRequest;
-}
-
-// For testing purposes, to reset the leave requests to the initial state.
-// Use with caution as it will clear any changes made to the leave requests during the session.
-/*
-=> Use in browser console as so,
-  const { resetLeaveRequests } = await import('/src/services/mockPortalData.js');
-  resetLeaveRequests();
-*/
-export function resetLeaveRequests() {
-  clearSavedLeaveRequests();
-  Repository.LeaveRepository = initialLeaveRepository.map(request => ({
-    ...request,
-  }));
-
-  return Repository.LeaveRepository;
-}
