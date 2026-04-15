@@ -84,6 +84,10 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository, triggerNotifi
                   return;
               }  
           }
+        else{
+            triggerNotification('Please fill in both start and end dates.');
+            return;
+        }
 
         if (!reason || reason.trim() === '') {
             triggerNotification('You must provide a reason for your leave request.');
@@ -108,13 +112,13 @@ function NewLeaveRquest({ currentEmpID, repository, setRepository, triggerNotifi
             <h2>New Leave Request</h2>
                 <form onSubmit={createLeaveRequest} className='leave-request-form'>
                     <label htmlFor="start-date">Start Date:</label>
-                    <input type="date" id="start-date" name="start-date" required />
+                    <input type="date" id="start-date" name="start-date" />
                     <br />
                     <label htmlFor="end-date">End Date:</label>
-                    <input type="date" id="end-date" name="end-date" required />
+                    <input type="date" id="end-date" name="end-date" />
                     <br />
                     <label htmlFor="reason">Reason:</label>
-                    <textarea id="reason" name="reason" placeholder='Brief description of your leave reason...'required />
+                    <textarea id="reason" name="reason" placeholder='Brief description of your leave reason...' />
                     <br />
                     <button type="submit">Submit Request</button>
                 </form>
