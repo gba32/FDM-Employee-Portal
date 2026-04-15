@@ -184,6 +184,17 @@ export const Repository = {
       dateResolved: null,
       resolutionNote: "",
     },
+    {
+      queryID: "6",
+      empID: "3",
+      queryType: QueryType.ITQUERY,
+      queryStatus: QueryStatus.RESOLVED,
+      dateRequested: "2026-04-01",
+      reason: "Unable to submit Leave request",
+      resolverID: "4",
+      dateResolved: "2026-04-08",
+      resolutionNote: "Solved",
+    }
   ],
   //USE CASES:
   //Employee Submit Annual Leave Request
