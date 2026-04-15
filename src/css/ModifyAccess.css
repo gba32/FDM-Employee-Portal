@@ -86,6 +86,7 @@
     display: flex;
     height: 32px;
     padding: 12px;
+    gap: 4px;
     justify-content: flex-end;
     align-items: flex-start;
     align-self: stretch;
