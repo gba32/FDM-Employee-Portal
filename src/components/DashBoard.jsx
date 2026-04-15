@@ -183,6 +183,7 @@ const Dashboard = ({
             repository={queryRepository}
             setRepository={setQueryRepository}
             user={user}
+            triggerNotification={triggerNotification}
           ></ResolveHR>
         )}
 

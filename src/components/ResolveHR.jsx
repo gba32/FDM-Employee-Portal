@@ -4,7 +4,7 @@ import { QueryStatus, QueryType } from "../services/mockPortalData";
 import resolveHRIcon from '../images/resolveHR-icon.svg';
 import teamMemberIcon from '../images/teamMembers-icon.svg';
 
-const ResolveHR = ({ employeeRepository, repository, setRepository, user }) => {
+const ResolveHR = ({ employeeRepository, repository, setRepository, user, triggerNotification }) => {
   const [note, setNote] = useState({});
 
   // Basic checks to ensure data is available before rendering
@@ -29,7 +29,7 @@ const ResolveHR = ({ employeeRepository, repository, setRepository, user }) => {
   // Checks if a resolution note has been entered before allowing resolution
   const handleResolve = (queryID) => {
     if (!note[queryID]?.trim()) {
-      alert("Please enter a resolution note");
+      triggerNotification("Please enter a resolution note!");
       return;
     }
     const updatedQueries = repository.map((query) => {
