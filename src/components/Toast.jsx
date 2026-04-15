@@ -16,7 +16,7 @@ export function showText(message, duration, context) {
 }
 
 function ToastBar({ containerClass, toastClass, toasts, limit = 1 }) {
-    return <div className={containerClass}>{toasts.slice(0, limit).map((({ msg }) => <span className={toastClass}>{msg}</span>))}</div>
+    return <div className={containerClass}>{toasts.slice(0, limit).map((({ id, msg }) => <span key={ "toast-" + id } className={toastClass}>{msg}</span>))}</div>
 }
 
 export function ToastContainer({ children, containerClass, toastClass, limit }) {
