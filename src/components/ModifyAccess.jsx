@@ -174,6 +174,13 @@ function EmployeeCard({ className, employee, permissionManager, onPermissionsCha
     setPermissionState(newPermissions)
   }
 
+  const statesEqual = () => {
+    let equal = true;
+    let permissions = permissionManager.getPermissionStates(employee.id);
+    permissionState.forEach((_, i) => {equal = equal && permissionState[i].enabled == permissions[i].enabled} )
+    return equal;
+  }
+
   return <article className={className}>
     <header>
       <EmployeePFP employee={employee} />
@@ -184,6 +191,9 @@ function EmployeeCard({ className, employee, permissionManager, onPermissionsCha
     </header>
     <PermissionBar permissions={permissionState} onPermissionChanged={updatePermissionState} />
     <div className="saveBar">
+      { statesEqual() ? <></> : <button onClick={
+        () => setPermissionState(permissionManager.getPermissionStates(employee.id))
+        }> Revert changes </button> }
       <button onClick={() => { 
         showText("Saved!", DELAY, context);
         onPermissionsChanged(permissionState)
@@ -236,7 +246,6 @@ const ModifyAccess = ({ repository, setRepository, user }) => {
             }} />}
           placeholderFunction={() => <p>No employees found.</p>}
           nameFunction={(item) => item.name} limit={LIMIT}
-
           keyFunction={(item) => item.id} />
       </section>
     </ToastContainer>
