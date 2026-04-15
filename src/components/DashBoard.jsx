@@ -79,7 +79,7 @@ const Dashboard = ({
             </div>
             <div className="panelsContainer">
               <section className="panelBox">
-                <h3>Pending Requests</h3>
+                <h3>Pending Queries</h3>
                 <div className="panelRow">
                   <p>{pendingQueryCount}</p>
                   <img src={bellIcon} alt="Bell Icon" />
