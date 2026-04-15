@@ -88,12 +88,13 @@ const SubmitQuery = ({ repository, setRepository, user }) => {
     return <p>Loading user data</p>;
   }
 
-  const recentQueries = repository.slice(0, 3);
-  const hasAdditionalHistory = repository.length > 3;
+  const userQueries = repository.filter((q) => q.empID === user.id);
+  const recentQueries = userQueries.slice(0, 3);
+  const hasAdditionalHistory = userQueries.length > 3;
 
   const renderQueryCard = (query, isHistoryView = false) => (
     <div
-      key={`${isHistoryView ? "history" : "recent"}-${query.id}`}
+      key={`${isHistoryView ? "history" : "recent"}-${query.queryID}`}
       className={`query-card ${isHistoryView ? "query-card-history" : ""}`}
     >
       <div className="query-text">
@@ -201,7 +202,7 @@ const SubmitQuery = ({ repository, setRepository, user }) => {
                 <div className="query-history-modal">
                   <div className="query-history-content">
                     <h2>Query History</h2>
-                    {repository.map((query) => renderQueryCard(query, true))}
+                    {userQueries.map((query) => renderQueryCard(query, true))}
                   </div>
                   <div className="query-history-close">
                     <button type="button" onClick={() => close()}>
