@@ -10,11 +10,11 @@ import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
-function formatDate(date) {
+/*function formatDate(date) {
   return String(date.getDay()).padStart(2, "0") 
     + "/" + String(date.getMonth()).padStart(2, '0') 
     + "/" + date.getFullYear();
-}
+}*/
 
 function getNextQueryID(repository) {
   let maxID = 0;
@@ -58,7 +58,7 @@ const SubmitQuery = ({ repository, setRepository, user }) => {
       empID: user.id,
       queryType: queryType,
       queryStatus: QueryStatus.PENDING,
-      dateRequested: formatDate(new Date()),
+      dateRequested: new Date(),
       subject: subject,
       reason: question,
       resolverID: "",
@@ -66,7 +66,7 @@ const SubmitQuery = ({ repository, setRepository, user }) => {
       resolutionNote: ""
     }
 
-    const updatedQueries = [newQuery, ...repository];
+    const updatedQueries = [ newQuery, ...repository,];
     console.log("REPO", repository);
     console.log("NEW QUERY", newQuery);
     console.log("NEW REPO", updatedQueries);
