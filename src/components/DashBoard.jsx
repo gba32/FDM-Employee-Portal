@@ -17,6 +17,7 @@ import ModifyAccess from "./ModifyAccess";
 import InternalAnnouncement from "./InternalAnnouncement";
 
 import { LeaveActionType, LeaveStatus } from "../services/mockPortalData";
+import { QueryStatus, QueryType } from "../services/mockPortalData";
 
 const Dashboard = ({
   user,
@@ -39,10 +40,16 @@ const Dashboard = ({
   //   <img src={announcementIcon} alt="Announcement Icon" />
   // );
 
-  //calculate the number of pending requests based on user's empId
+  //calculate the number of pending leave requests based on user's empId
   const pendingCount = leaveRepository.filter(
     (leave) =>
       leave.leaveStatus === LeaveStatus.PENDING && leave.empID === user.id,
+  ).length;
+
+  //calculate the number of pending queries based on user's empId
+  const pendingQueryCount = queryRepository.filter(
+    (query) =>
+      query.queryStatus === QueryStatus.PENDING && query.empID === user.id,
   ).length;
 
   //calculate the number of approved leave requests based on user's empId
@@ -74,7 +81,7 @@ const Dashboard = ({
               <section className="panelBox">
                 <h3>Pending Requests</h3>
                 <div className="panelRow">
-                  <p>{pendingCount}</p>
+                  <p>{pendingQueryCount}</p>
                   <img src={bellIcon} alt="Bell Icon" />
                 </div>
               </section>
