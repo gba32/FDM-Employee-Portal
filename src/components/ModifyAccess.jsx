@@ -98,10 +98,11 @@ class PermissionManager {
  * @callback onPermissionChanged 
  * @returns 
  */
-function PermissionCheckBox(permission, onPermissionChanged = (permission, checked) => { }) {
+function PermissionCheckBox(employeeId, permission, onPermissionChanged = (permission, checked) => { }) {
+  let id = employeeId + "-" + permission.name;
   return <>
-    <input type="checkbox" checked={permission.enabled} disabled={permission.editable} onChange={(event) => onPermissionChanged(permission, event.target.checked)} />
-    <label>{permission.name}</label>
+    <input id={id} type="checkbox" checked={permission.enabled} disabled={permission.editable} onChange={(event) => onPermissionChanged(permission, event.target.checked)} />
+    <label htmlFor={id}>{permission.name}</label>
   </>
 }
 
@@ -111,8 +112,8 @@ function PermissionCheckBox(permission, onPermissionChanged = (permission, check
  * @param {*} param0 
  * @returns 
  */
-function PermissionBar({ permissions, onPermissionChanged = () => { } }) {
-  return (<List className="permissionBar" items={permissions} templateFunction={(p) => PermissionCheckBox(p, onPermissionChanged)} />);
+function PermissionBar({ userId, permissions, onPermissionChanged = () => { } }) {
+  return (<List className="permissionBar" keyFunction={(permission) => userId + "-" + permission.name} items={permissions} templateFunction={(p) => PermissionCheckBox(userId, p, onPermissionChanged)} />);
 }
 
 /**
@@ -189,7 +190,7 @@ function EmployeeCard({ className, employee, permissionManager, onPermissionsCha
         <h6>{employee.email}</h6>
       </div>
     </header>
-    <PermissionBar permissions={permissionState} onPermissionChanged={updatePermissionState} />
+    <PermissionBar userId={employee.id} permissions={permissionState} onPermissionChanged={updatePermissionState} />
     <div className="saveBar">
       { statesEqual() ? <></> : <button onClick={
         () => setPermissionState(permissionManager.getPermissionStates(employee.id))
