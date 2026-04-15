@@ -94,6 +94,10 @@
   font-family: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.query-form input {
+  box-sizing: border-box;
+}
+
 .query-form input::placeholder,
 .query-form textarea::placeholder {
   color: #717182;
