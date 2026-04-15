@@ -8,6 +8,15 @@
 .mainContent {
   flex: 1;
   min-height: 100vh;
+  margin-left: 16rem;
+  width: calc(100% - 16rem);
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.sideBarContainer.collapsed + .mainContent {
+  margin-left: 4.5rem;
+  width: calc(100% - 4.5rem);
 }
 .homeContainer {
   max-width: 1100px;
@@ -57,11 +66,10 @@
   gap: 1.5rem;
   /* width: 100%; */
   display: grid;
-  grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 .panelsContainer .panelBox {
-  padding: 1.5rem 0 1.5rem 1.5rem;
+  padding: 1.5rem;
   border-radius: 0.875rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -85,6 +93,15 @@
   font-style: normal;
   font-weight: 400;
   line-height: 2.25rem; /* 120% */
+  margin: 0;
+}
+
+.panelRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 /* Activity feed */
@@ -130,13 +147,20 @@
   width: 2.5rem;
   height: 2.5rem;
   padding: 0.5rem;
-  border-radius: 10rem;
+  border-radius: 50%;
+  flex-shrink: 0;
 
   justify-content: center;
   align-items: center;
 
   background: #c5ff00;
-  font-family: "Azeret Mono", monospace;
+  /* font-family: "Azeret Mono", monospace; */
+}
+.profilePicture img {
+  width: 60%;
+  display: block;
+  object-fit: contain;
+  filter: brightness(0);
 }
 .announcementTop .details p {
   margin: 0;
@@ -183,13 +207,13 @@
 
 @media (max-width: 1100px) {
   .mainContent {
-    margin-left: 17rem;
-    width: calc(100% - 17rem);
+    margin-left: 16rem;
+    width: calc(100% - 16rem);
   }
 
   .sideBarContainer.collapsed + .mainContent {
-    margin-left: 5.5rem;
-    width: calc(100% - 5.5rem);
+    margin-left: 4.5rem;
+    width: calc(100% - 4.5rem);
   }
 
   body.leave-history-popup-open .mainContent {
